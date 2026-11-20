@@ -2572,5 +2572,53 @@
         }
       ]
     }
+  },
+  "moves_sanity": {
+    "z_mean": -0.006214087470356082,
+    "z_std": 1.0485560058196455,
+    "n_ticker_days": 30120,
+    "n_flagged": 425,
+    "flags_per_ticker": {
+      "AAPL": 9,
+      "ABBV": 12,
+      "ABT": 8,
+      "ALB": 12,
+      "AMD": 12,
+      "AMT": 9,
+      "AMZN": 12,
+      "BA": 11,
+      "CAT": 16,
+      "CMCSA": 13,
+      "COP": 7,
+      "COST": 13,
+      "CVX": 10,
+      "D": 10,
+      "DIS": 14,
+      "DUK": 6,
+      "FDX": 11,
+      "GE": 9,
+      "GOOG": 18,
+      "GS": 8,
+      "KO": 12,
+      "MRK": 10,
+      "MS": 9,
+      "MSFT": 12,
+      "NEE": 16,
+      "NEM": 13,
+      "NKE": 10,
+      "NUE": 8,
+      "NVDA": 8,
+      "O": 6,
+      "OXY": 4,
+      "PLD": 9,
+      "PYPL": 7,
+      "SBUX": 14,
+      "T": 18,
+      "TGT": 10,
+      "TSLA": 12,
+      "V": 12,
+      "WMT": 9,
+      "XOM": 6
+    }
   }
 }

@@ -54,3 +54,15 @@ Every non-obvious decision, with the reason. Newest at the bottom of each sectio
 ## Sector module
 - TF-IDF vectoriser is implemented from scratch (project tokenizer, 1–2 grams, min_df 2, max_df 0.5, sublinear).
 - Classification CV fits the vectoriser inside each training fold.
+
+## Data findings logged during the build
+- **pandas empty-frame bug (fixed, guarded).** Assigning a longer Series to an *empty* DataFrame makes pandas adopt that
+  Series' index, which produced phantom NaN-ticker rows with out-of-period dates in the first FNSPID filter. The
+  filter now masks the Series with the same mask, skips empty chunks, and `build_news_all` asserts that every kept row has a valid
+  ticker and an in-period timestamp.
+- **Uneven FNSPID coverage.** After filtering, the news counts show no 2021 news for AAPL, MSFT, TSLA and none before 2023 for AMZN
+  (see `data/` log, "news counts per ticker per year"). The ticker-selection rule (highest news count in the period) is kept as
+  specified, so DEV tuning has less news for those tickers; their 8-Ks (once collected) are still in the pool. Reported as a limitation.
+- Prices: 8 current constituents have no price history in the window (recent listings: FDXF, GEV, HONA, Q, RDDT, SNDK, SOLV, VYLR);
+  they are excluded from H2 sector means and from text-peer means automatically (NaN-aware).
+- Moves: market-model z over 30,120 ticker-days has mean -0.006 and std 1.049; 425 moves flagged (120 DEV, 305 TEST).

@@ -1,0 +1,2576 @@
+{
+  "sectors": {
+    "n_companies": 503,
+    "n_terms": 10297,
+    "mean_peer_purity": 0.7073558648111332,
+    "random_peer_purity": 0.11343865237995485,
+    "kmeans_k11": {
+      "sector": {
+        "nmi": 0.4582039158320625,
+        "ari": 0.33371955078935805,
+        "purity": 0.5725646123260437,
+        "shuffled_baseline": {
+          "nmi": 0.046775224212944215,
+          "ari": 0.00012024569766126564,
+          "purity": 0.20769383697813118
+        }
+      },
+      "sub_industry": {
+        "nmi": 0.52026568598733,
+        "ari": 0.09896214790850374,
+        "purity": 0.1610337972166998,
+        "shuffled_baseline": {
+          "nmi": 0.2870100360067762,
+          "ari": -2.8434658796007282e-05,
+          "purity": 0.06856858846918489
+        }
+      },
+      "objective_mean_cosine": 0.26523604227729386
+    },
+    "kmeans_scan": [
+      {
+        "k": 5,
+        "silhouette": 0.019232923037832937,
+        "nmi_sector": 0.45900655869179235,
+        "ari_sector": 0.3114961643610179,
+        "objective": 0.22180593316949426
+      },
+      {
+        "k": 6,
+        "silhouette": 0.0210668062632895,
+        "nmi_sector": 0.5113061750596203,
+        "ari_sector": 0.3923639269572583,
+        "objective": 0.23361163549358016
+      },
+      {
+        "k": 7,
+        "silhouette": 0.019141883269781473,
+        "nmi_sector": 0.4470011374454636,
+        "ari_sector": 0.29769670353589556,
+        "objective": 0.23999924149048446
+      },
+      {
+        "k": 8,
+        "silhouette": 0.020298590125324728,
+        "nmi_sector": 0.4891587595092737,
+        "ari_sector": 0.31689574774946155,
+        "objective": 0.24895448998832287
+      },
+      {
+        "k": 9,
+        "silhouette": 0.019789501300581266,
+        "nmi_sector": 0.5329332265129,
+        "ari_sector": 0.42235568191608663,
+        "objective": 0.2537802887036875
+      },
+      {
+        "k": 10,
+        "silhouette": 0.018993134618732723,
+        "nmi_sector": 0.5023827802481601,
+        "ari_sector": 0.3950692522510377,
+        "objective": 0.260701870326788
+      },
+      {
+        "k": 11,
+        "silhouette": 0.01955733967596983,
+        "nmi_sector": 0.4582039158320625,
+        "ari_sector": 0.33371955078935805,
+        "objective": 0.26523604227729386
+      },
+      {
+        "k": 12,
+        "silhouette": 0.018180359343821638,
+        "nmi_sector": 0.4860133153295004,
+        "ari_sector": 0.30374260085345783,
+        "objective": 0.2720689403242754
+      },
+      {
+        "k": 13,
+        "silhouette": 0.01262504166697656,
+        "nmi_sector": 0.37944605366708517,
+        "ari_sector": 0.207370007429865,
+        "objective": 0.26903669562167654
+      },
+      {
+        "k": 14,
+        "silhouette": 0.018979552391260632,
+        "nmi_sector": 0.5199165692566,
+        "ari_sector": 0.3490480636634878,
+        "objective": 0.2808079609541771
+      },
+      {
+        "k": 15,
+        "silhouette": 0.01633760532948556,
+        "nmi_sector": 0.47832906000297837,
+        "ari_sector": 0.31594697741402833,
+        "objective": 0.28711752612045266
+      },
+      {
+        "k": 16,
+        "silhouette": 0.016467281891443867,
+        "nmi_sector": 0.4983081719302913,
+        "ari_sector": 0.321405935133395,
+        "objective": 0.28958528884281454
+      },
+      {
+        "k": 17,
+        "silhouette": 0.01832151108365399,
+        "nmi_sector": 0.4607449495701634,
+        "ari_sector": 0.27052613389666685,
+        "objective": 0.2960013854210431
+      },
+      {
+        "k": 18,
+        "silhouette": 0.015178030033552774,
+        "nmi_sector": 0.5075443156946858,
+        "ari_sector": 0.2972552118363969,
+        "objective": 0.30196572058604704
+      },
+      {
+        "k": 19,
+        "silhouette": 0.01601459064293099,
+        "nmi_sector": 0.48197355065959413,
+        "ari_sector": 0.2717181986615583,
+        "objective": 0.3046724065152145
+      },
+      {
+        "k": 20,
+        "silhouette": 0.016636887298474404,
+        "nmi_sector": 0.4881898057909887,
+        "ari_sector": 0.2744860404738472,
+        "objective": 0.3090816332663298
+      },
+      {
+        "k": 21,
+        "silhouette": 0.015804884260088133,
+        "nmi_sector": 0.46186333361290194,
+        "ari_sector": 0.2165727848342928,
+        "objective": 0.314645457826975
+      },
+      {
+        "k": 22,
+        "silhouette": 0.016287446998836587,
+        "nmi_sector": 0.4930668730361526,
+        "ari_sector": 0.2655458779755222,
+        "objective": 0.31821751517122265
+      },
+      {
+        "k": 23,
+        "silhouette": 0.015744259836963818,
+        "nmi_sector": 0.49603597423942974,
+        "ari_sector": 0.2653097811431208,
+        "objective": 0.3213522350309768
+      },
+      {
+        "k": 24,
+        "silhouette": 0.018943907820571267,
+        "nmi_sector": 0.48598544703328383,
+        "ari_sector": 0.25099364608714586,
+        "objective": 0.32829955861747717
+      },
+      {
+        "k": 25,
+        "silhouette": 0.02160516634316187,
+        "nmi_sector": 0.4746594801600914,
+        "ari_sector": 0.23708387355407468,
+        "objective": 0.33105733307270824
+      },
+      {
+        "k": 26,
+        "silhouette": 0.019429503553505856,
+        "nmi_sector": 0.5235073909759711,
+        "ari_sector": 0.3133819044627195,
+        "objective": 0.33535582531168884
+      },
+      {
+        "k": 27,
+        "silhouette": 0.02122306565638011,
+        "nmi_sector": 0.5346682302579723,
+        "ari_sector": 0.30033617964611947,
+        "objective": 0.34362888811617176
+      },
+      {
+        "k": 28,
+        "silhouette": 0.011913205972868287,
+        "nmi_sector": 0.46278760750216785,
+        "ari_sector": 0.1957320435529761,
+        "objective": 0.3403716060369426
+      },
+      {
+        "k": 29,
+        "silhouette": 0.018139723331031952,
+        "nmi_sector": 0.5218614319465636,
+        "ari_sector": 0.25951414224100855,
+        "objective": 0.34579353701518895
+      },
+      {
+        "k": 30,
+        "silhouette": 0.01633299188812,
+        "nmi_sector": 0.48195922202123226,
+        "ari_sector": 0.20849709616197126,
+        "objective": 0.34923286238443774
+      }
+    ],
+    "hierarchical_k11": {
+      "sector": {
+        "nmi": 0.6347109161014116,
+        "ari": 0.49821270547136737,
+        "purity": 0.6322067594433399,
+        "shuffled_baseline": {
+          "nmi": 0.04599757822655169,
+          "ari": 0.000142152759099923,
+          "purity": 0.2025049701789265
+        }
+      },
+      "sub_industry": {
+        "nmi": 0.5613051290777442,
+        "ari": 0.10052971412524707,
+        "purity": 0.16699801192842942,
+        "shuffled_baseline": {
+          "nmi": 0.24881697874451947,
+          "ari": 0.00021952657691051616,
+          "purity": 0.06582504970178923
+        }
+      }
+    },
+    "sector_classification": {
+      "nb": {
+        "accuracy": 0.8628230616302187,
+        "macro_f1": 0.8616501918369542,
+        "per_class": {
+          "Communication Services": {
+            "precision": 1.0,
+            "recall": 0.6818181818181818,
+            "f1": 0.8108108108108109,
+            "support": 22
+          },
+          "Consumer Discretionary": {
+            "precision": 0.868421052631579,
+            "recall": 0.7021276595744681,
+            "f1": 0.7764705882352942,
+            "support": 47
+          },
+          "Consumer Staples": {
+            "precision": 0.8285714285714286,
+            "recall": 0.8787878787878788,
+            "f1": 0.8529411764705883,
+            "support": 33
+          },
+          "Energy": {
+            "precision": 1.0,
+            "recall": 0.8571428571428571,
+            "f1": 0.923076923076923,
+            "support": 21
+          },
+          "Financials": {
+            "precision": 0.8902439024390244,
+            "recall": 0.9605263157894737,
+            "f1": 0.9240506329113923,
+            "support": 76
+          },
+          "Health Care": {
+            "precision": 0.9821428571428571,
+            "recall": 0.9166666666666666,
+            "f1": 0.9482758620689654,
+            "support": 60
+          },
+          "Industrials": {
+            "precision": 0.7422680412371134,
+            "recall": 0.8674698795180723,
+            "f1": 0.7999999999999999,
+            "support": 83
+          },
+          "Information Technology": {
+            "precision": 0.7692307692307693,
+            "recall": 0.9210526315789473,
+            "f1": 0.8383233532934132,
+            "support": 76
+          },
+          "Materials": {
+            "precision": 0.8823529411764706,
+            "recall": 0.625,
+            "f1": 0.7317073170731708,
+            "support": 24
+          },
+          "Real Estate": {
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.888888888888889,
+            "support": 30
+          },
+          "Utilities": {
+            "precision": 1.0,
+            "recall": 0.967741935483871,
+            "f1": 0.9836065573770492,
+            "support": 31
+          }
+        },
+        "labels": [
+          "Communication Services",
+          "Consumer Discretionary",
+          "Consumer Staples",
+          "Energy",
+          "Financials",
+          "Health Care",
+          "Industrials",
+          "Information Technology",
+          "Materials",
+          "Real Estate",
+          "Utilities"
+        ],
+        "confusion": [
+          [
+            15,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            33,
+            4,
+            0,
+            0,
+            0,
+            6,
+            4,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            29,
+            0,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            18,
+            0,
+            0,
+            3,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            73,
+            0,
+            1,
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            55,
+            1,
+            4,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            0,
+            0,
+            5,
+            0,
+            72,
+            3,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            5,
+            70,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            7,
+            0,
+            15,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            3,
+            0,
+            0,
+            3,
+            0,
+            24,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            30
+          ]
+        ]
+      },
+      "rocchio": {
+        "accuracy": 0.8707753479125249,
+        "macro_f1": 0.8769291395245759,
+        "per_class": {
+          "Communication Services": {
+            "precision": 0.8571428571428571,
+            "recall": 0.8181818181818182,
+            "f1": 0.8372093023255814,
+            "support": 22
+          },
+          "Consumer Discretionary": {
+            "precision": 0.8947368421052632,
+            "recall": 0.723404255319149,
+            "f1": 0.8,
+            "support": 47
+          },
+          "Consumer Staples": {
+            "precision": 0.8571428571428571,
+            "recall": 0.9090909090909091,
+            "f1": 0.8823529411764706,
+            "support": 33
+          },
+          "Energy": {
+            "precision": 0.95,
+            "recall": 0.9047619047619048,
+            "f1": 0.9268292682926829,
+            "support": 21
+          },
+          "Financials": {
+            "precision": 0.8987341772151899,
+            "recall": 0.9342105263157895,
+            "f1": 0.9161290322580645,
+            "support": 76
+          },
+          "Health Care": {
+            "precision": 0.9824561403508771,
+            "recall": 0.9333333333333333,
+            "f1": 0.9572649572649572,
+            "support": 60
+          },
+          "Industrials": {
+            "precision": 0.7764705882352941,
+            "recall": 0.7951807228915663,
+            "f1": 0.7857142857142857,
+            "support": 83
+          },
+          "Information Technology": {
+            "precision": 0.7906976744186046,
+            "recall": 0.8947368421052632,
+            "f1": 0.8395061728395061,
+            "support": 76
+          },
+          "Materials": {
+            "precision": 0.8571428571428571,
+            "recall": 0.75,
+            "f1": 0.7999999999999999,
+            "support": 24
+          },
+          "Real Estate": {
+            "precision": 1.0,
+            "recall": 0.9,
+            "f1": 0.9473684210526316,
+            "support": 30
+          },
+          "Utilities": {
+            "precision": 0.9117647058823529,
+            "recall": 1.0,
+            "f1": 0.9538461538461539,
+            "support": 31
+          }
+        },
+        "labels": [
+          "Communication Services",
+          "Consumer Discretionary",
+          "Consumer Staples",
+          "Energy",
+          "Financials",
+          "Health Care",
+          "Industrials",
+          "Information Technology",
+          "Materials",
+          "Real Estate",
+          "Utilities"
+        ],
+        "confusion": [
+          [
+            18,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            34,
+            4,
+            0,
+            0,
+            0,
+            5,
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            30,
+            0,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            19,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            71,
+            0,
+            2,
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            56,
+            0,
+            4,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            0,
+            1,
+            5,
+            0,
+            66,
+            5,
+            2,
+            0,
+            2
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            4,
+            68,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            5,
+            0,
+            18,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            1,
+            0,
+            27,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            31
+          ]
+        ]
+      },
+      "knn": {
+        "accuracy": 0.8489065606361829,
+        "macro_f1": 0.8378433713486781,
+        "per_class": {
+          "Communication Services": {
+            "precision": 0.7894736842105263,
+            "recall": 0.6818181818181818,
+            "f1": 0.7317073170731707,
+            "support": 22
+          },
+          "Consumer Discretionary": {
+            "precision": 0.8333333333333334,
+            "recall": 0.7446808510638298,
+            "f1": 0.7865168539325842,
+            "support": 47
+          },
+          "Consumer Staples": {
+            "precision": 0.8055555555555556,
+            "recall": 0.8787878787878788,
+            "f1": 0.8405797101449276,
+            "support": 33
+          },
+          "Energy": {
+            "precision": 0.9090909090909091,
+            "recall": 0.9523809523809523,
+            "f1": 0.9302325581395349,
+            "support": 21
+          },
+          "Financials": {
+            "precision": 0.8987341772151899,
+            "recall": 0.9342105263157895,
+            "f1": 0.9161290322580645,
+            "support": 76
+          },
+          "Health Care": {
+            "precision": 0.9333333333333333,
+            "recall": 0.9333333333333333,
+            "f1": 0.9333333333333333,
+            "support": 60
+          },
+          "Industrials": {
+            "precision": 0.7560975609756098,
+            "recall": 0.7469879518072289,
+            "f1": 0.7515151515151515,
+            "support": 83
+          },
+          "Information Technology": {
+            "precision": 0.8117647058823529,
+            "recall": 0.9078947368421053,
+            "f1": 0.8571428571428571,
+            "support": 76
+          },
+          "Materials": {
+            "precision": 0.8461538461538461,
+            "recall": 0.4583333333333333,
+            "f1": 0.5945945945945945,
+            "support": 24
+          },
+          "Real Estate": {
+            "precision": 0.9655172413793104,
+            "recall": 0.9333333333333333,
+            "f1": 0.9491525423728815,
+            "support": 30
+          },
+          "Utilities": {
+            "precision": 0.8611111111111112,
+            "recall": 1.0,
+            "f1": 0.9253731343283582,
+            "support": 31
+          }
+        },
+        "labels": [
+          "Communication Services",
+          "Consumer Discretionary",
+          "Consumer Staples",
+          "Energy",
+          "Financials",
+          "Health Care",
+          "Industrials",
+          "Information Technology",
+          "Materials",
+          "Real Estate",
+          "Utilities"
+        ],
+        "confusion": [
+          [
+            15,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0
+          ],
+          [
+            3,
+            35,
+            2,
+            0,
+            0,
+            0,
+            5,
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            29,
+            1,
+            0,
+            1,
+            0,
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            20,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            0,
+            0,
+            71,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            56,
+            1,
+            3,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            4,
+            1,
+            0,
+            5,
+            3,
+            62,
+            4,
+            0,
+            0,
+            4
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            4,
+            69,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            4,
+            1,
+            0,
+            0,
+            8,
+            0,
+            11,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            28,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            31
+          ]
+        ]
+      }
+    },
+    "hidden_peers": [
+      {
+        "ticker": "ALB",
+        "name": "Albemarle Corporation",
+        "sector": "Materials",
+        "purity": 0.0,
+        "neighbors": [
+          {
+            "ticker": "XOM",
+            "sector": "Energy",
+            "why": [
+              "lithium",
+              "chemic product",
+              "catalyst",
+              "carbon",
+              "product chemic"
+            ]
+          },
+          {
+            "ticker": "TSLA",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "lithium",
+              "solar panel",
+              "electr vehicl",
+              "energi storag",
+              "panel"
+            ]
+          },
+          {
+            "ticker": "WAT",
+            "sector": "Health Care",
+            "why": [
+              "fine chemic",
+              "chemic pharmaceut",
+              "fine",
+              "variou industri",
+              "pharmaceut"
+            ]
+          },
+          {
+            "ticker": "HON",
+            "sector": "Industrials",
+            "why": [
+              "catalyst",
+              "headquart charlott",
+              "charlott",
+              "technolog includ",
+              "charlott north"
+            ]
+          },
+          {
+            "ticker": "DD",
+            "sector": "Industrials",
+            "why": [
+              "element",
+              "includ element",
+              "automot aerospac",
+              "medic devic",
+              "life scienc"
+            ]
+          }
+        ],
+        "why": "XOM (Energy): lithium, chemic product, catalyst, carbon, product chemic; TSLA (Consumer Discretionary): lithium, solar panel, electr vehicl, energi storag, panel; WAT (Health Care): fine chemic, chemic pharmaceut, fine, variou industri, pharmaceut"
+      },
+      {
+        "ticker": "BRK-B",
+        "name": "Berkshire Hathaway",
+        "sector": "Financials",
+        "purity": 0.0,
+        "neighbors": [
+          {
+            "ticker": "UNP",
+            "sector": "Industrials",
+            "why": [
+              "oper railroad",
+              "nebraska",
+              "omaha nebraska",
+              "omaha",
+              "headquart omaha"
+            ]
+          },
+          {
+            "ticker": "HWM",
+            "sector": "Industrials",
+            "why": [
+              "forg",
+              "fasten system",
+              "fasten",
+              "titanium",
+              "nickel"
+            ]
+          },
+          {
+            "ticker": "XEL",
+            "sector": "Utilities",
+            "why": [
+              "store distribut",
+              "electr natur",
+              "interst",
+              "hydroelectr",
+              "transmit"
+            ]
+          },
+          {
+            "ticker": "TJX",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "home decor",
+              "decor",
+              "furnitur",
+              "jewelri",
+              "footwear"
+            ]
+          },
+          {
+            "ticker": "RL",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "floor cover",
+              "cloth",
+              "floor",
+              "watch",
+              "bed"
+            ]
+          }
+        ],
+        "why": "UNP (Industrials): oper railroad, nebraska, omaha nebraska, omaha, headquart omaha; HWM (Industrials): forg, fasten system, fasten, titanium, nickel; XEL (Utilities): store distribut, electr natur, interst, hydroelectr, transmit"
+      },
+      {
+        "ticker": "BR",
+        "name": "Broadridge Financial Solutions",
+        "sector": "Industrials",
+        "purity": 0.0,
+        "neighbors": [
+          {
+            "ticker": "STT",
+            "sector": "Financials",
+            "why": [
+              "secur financ",
+              "solut portfolio",
+              "portfolio manag",
+              "institut investor",
+              "complianc"
+            ]
+          },
+          {
+            "ticker": "NDAQ",
+            "sector": "Financials",
+            "why": [
+              "provid investor",
+              "collater manag",
+              "govern solut",
+              "regulatori report",
+              "clear settlement"
+            ]
+          },
+          {
+            "ticker": "BNY",
+            "sector": "Financials",
+            "why": [
+              "market wealth",
+              "issuer",
+              "custodi",
+              "exchang trade",
+              "clear"
+            ]
+          },
+          {
+            "ticker": "NTRS",
+            "sector": "Financials",
+            "why": [
+              "asset servic",
+              "manag asset",
+              "fund manag",
+              "custodi",
+              "analyt servic"
+            ]
+          },
+          {
+            "ticker": "SCHW",
+            "sector": "Financials",
+            "why": [
+              "fund trade",
+              "mutual fund",
+              "mutual",
+              "margin",
+              "broker dealer"
+            ]
+          }
+        ],
+        "why": "STT (Financials): secur financ, solut portfolio, portfolio manag, institut investor, complianc; NDAQ (Financials): provid investor, collater manag, govern solut, regulatori report, clear settlement; BNY (Financials): market wealth, issuer, custodi, exchang trade, clear"
+      },
+      {
+        "ticker": "IFF",
+        "name": "International Flavors & Fragrances",
+        "sector": "Materials",
+        "purity": 0.0,
+        "neighbors": [
+          {
+            "ticker": "ADM",
+            "sector": "Consumer Staples",
+            "why": [
+              "ingredi",
+              "food feed",
+              "flavor",
+              "specialti food",
+              "anim nutrit"
+            ]
+          },
+          {
+            "ticker": "GIS",
+            "sector": "Consumer Staples",
+            "why": [
+              "tast",
+              "savori",
+              "ice cream",
+              "ingredi",
+              "cream"
+            ]
+          },
+          {
+            "ticker": "DG",
+            "sector": "Consumer Staples",
+            "why": [
+              "spice",
+              "soup",
+              "product pet",
+              "cereal",
+              "fruit veget"
+            ]
+          },
+          {
+            "ticker": "CASY",
+            "sector": "Consumer Staples",
+            "why": [
+              "ice cream",
+              "dairi product",
+              "ice",
+              "spirit",
+              "juic"
+            ]
+          },
+          {
+            "ticker": "HSY",
+            "sector": "Consumer Staples",
+            "why": [
+              "gum",
+              "ingredi",
+              "chew",
+              "chew gum",
+              "protein"
+            ]
+          }
+        ],
+        "why": "ADM (Consumer Staples): ingredi, food feed, flavor, specialti food, anim nutrit; GIS (Consumer Staples): tast, savori, ice cream, ingredi, cream; DG (Consumer Staples): spice, soup, product pet, cereal, fruit veget"
+      },
+      {
+        "ticker": "J",
+        "name": "Jacobs Solutions",
+        "sector": "Industrials",
+        "purity": 0.0,
+        "neighbors": [
+          {
+            "ticker": "ACN",
+            "sector": "Information Technology",
+            "why": [
+              "provid consult",
+              "consult",
+              "life scienc",
+              "defens",
+              "project"
+            ]
+          },
+          {
+            "ticker": "AXP",
+            "sector": "Financials",
+            "why": [
+              "australia new",
+              "zealand",
+              "new zealand",
+              "servic consum",
+              "state europ"
+            ]
+          },
+          {
+            "ticker": "NCLH",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "australia new",
+              "asia australia",
+              "zealand",
+              "new zealand",
+              "australia"
+            ]
+          },
+          {
+            "ticker": "CTSH",
+            "sector": "Information Technology",
+            "why": [
+              "energi util",
+              "provid consult",
+              "consult",
+              "scienc",
+              "life scienc"
+            ]
+          },
+          {
+            "ticker": "BAX",
+            "sector": "Health Care",
+            "why": [
+              "europ canada",
+              "australia new",
+              "new zealand",
+              "zealand",
+              "australia"
+            ]
+          }
+        ],
+        "why": "ACN (Information Technology): provid consult, consult, life scienc, defens, project; AXP (Financials): australia new, zealand, new zealand, servic consum, state europ; NCLH (Consumer Discretionary): australia new, asia australia, zealand, new zealand, australia"
+      },
+      {
+        "ticker": "RDDT",
+        "name": "Reddit",
+        "sector": "Communication Services",
+        "purity": 0.0,
+        "neighbors": [
+          {
+            "ticker": "EBAY",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "enabl user",
+              "s platform",
+              "platform enabl",
+              "user",
+              "headquart san"
+            ]
+          },
+          {
+            "ticker": "ABNB",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "experi",
+              "francisco california",
+              "san francisco",
+              "francisco",
+              "headquart san"
+            ]
+          },
+          {
+            "ticker": "TWLO",
+            "sector": "Information Technology",
+            "why": [
+              "user",
+              "francisco california",
+              "francisco",
+              "san francisco",
+              "headquart san"
+            ]
+          },
+          {
+            "ticker": "OKTA",
+            "sector": "Information Technology",
+            "why": [
+              "enabl user",
+              "francisco california",
+              "san francisco",
+              "francisco",
+              "experi"
+            ]
+          },
+          {
+            "ticker": "CRM",
+            "sector": "Information Technology",
+            "why": [
+              "convers",
+              "platform enabl",
+              "francisco california",
+              "francisco",
+              "san francisco"
+            ]
+          }
+        ],
+        "why": "EBAY (Consumer Discretionary): enabl user, s platform, platform enabl, user, headquart san; ABNB (Consumer Discretionary): experi, francisco california, san francisco, francisco, headquart san; TWLO (Information Technology): user, francisco california, francisco, san francisco, headquart san"
+      },
+      {
+        "ticker": "VRSK",
+        "name": "Verisk Analytics",
+        "sector": "Industrials",
+        "purity": 0.0,
+        "neighbors": [
+          {
+            "ticker": "AJG",
+            "sector": "Financials",
+            "why": [
+              "claim",
+              "underwrit",
+              "casualti claim",
+              "polici",
+              "loss"
+            ]
+          },
+          {
+            "ticker": "ROP",
+            "sector": "Information Technology",
+            "why": [
+              "insur industri",
+              "estim",
+              "solut life",
+              "network solut",
+              "inform solut"
+            ]
+          },
+          {
+            "ticker": "MCO",
+            "sector": "Financials",
+            "why": [
+              "underwrit solut",
+              "model risk",
+              "insur underwrit",
+              "underwrit",
+              "rate"
+            ]
+          },
+          {
+            "ticker": "EG",
+            "sector": "Financials",
+            "why": [
+              "write",
+              "catastroph",
+              "casualti",
+              "reinsur",
+              "casualti insur"
+            ]
+          },
+          {
+            "ticker": "ACGL",
+            "sector": "Financials",
+            "why": [
+              "catastroph",
+              "reinsur busi",
+              "insur reinsur",
+              "casualti",
+              "reinsur"
+            ]
+          }
+        ],
+        "why": "AJG (Financials): claim, underwrit, casualti claim, polici, loss; ROP (Information Technology): insur industri, estim, solut life, network solut, inform solut; MCO (Financials): underwrit solut, model risk, insur underwrit, underwrit, rate"
+      },
+      {
+        "ticker": "VYLR",
+        "name": "Vylor",
+        "sector": "Consumer Staples",
+        "purity": 0.0,
+        "neighbors": [
+          {
+            "ticker": "REGN",
+            "sector": "Health Care",
+            "why": [
+              "gene edit",
+              "edit",
+              "gene",
+              "base"
+            ]
+          },
+          {
+            "ticker": "ILMN",
+            "sector": "Health Care",
+            "why": [
+              "gene",
+              "genet",
+              "biotechnolog",
+              "pipelin",
+              "scienc"
+            ]
+          },
+          {
+            "ticker": "ATO",
+            "sector": "Utilities",
+            "why": [
+              "pipelin industri",
+              "pipelin",
+              "industri",
+              "base"
+            ]
+          },
+          {
+            "ticker": "TECH",
+            "sector": "Health Care",
+            "why": [
+              "genet",
+              "gene",
+              "scienc",
+              "base"
+            ]
+          },
+          {
+            "ticker": "LH",
+            "sector": "Health Care",
+            "why": [
+              "gene",
+              "genet",
+              "biotechnolog",
+              "compani found",
+              "s"
+            ]
+          }
+        ],
+        "why": "REGN (Health Care): gene edit, edit, gene, base; ILMN (Health Care): gene, genet, biotechnolog, pipelin, scienc; ATO (Utilities): pipelin industri, pipelin, industri, base"
+      },
+      {
+        "ticker": "APP",
+        "name": "AppLovin",
+        "sector": "Communication Services",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "ADBE",
+            "sector": "Information Technology",
+            "why": [
+              "publish",
+              "advertis solut",
+              "advertis",
+              "app",
+              "solut enabl"
+            ]
+          },
+          {
+            "ticker": "DASH",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "palo",
+              "palo alto",
+              "alto",
+              "advertis",
+              "mobil app"
+            ]
+          },
+          {
+            "ticker": "AMZN",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "advertis",
+              "publish",
+              "tv",
+              "app",
+              "content"
+            ]
+          },
+          {
+            "ticker": "EBAY",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "app compani",
+              "mobil app",
+              "app",
+              "suit",
+              "platform"
+            ]
+          },
+          {
+            "ticker": "PTC",
+            "sector": "Information Technology",
+            "why": [
+              "publish solut",
+              "publish",
+              "solut enabl",
+              "real time",
+              "time"
+            ]
+          }
+        ],
+        "why": "ADBE (Information Technology): publish, advertis solut, advertis, app, solut enabl; DASH (Consumer Discretionary): palo, palo alto, alto, advertis, mobil app; AMZN (Consumer Discretionary): advertis, publish, tv, app, content"
+      },
+      {
+        "ticker": "APTV",
+        "name": "Aptiv",
+        "sector": "Consumer Discretionary",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "TEL",
+            "sector": "Information Technology",
+            "why": [
+              "tool servic",
+              "plc",
+              "2011",
+              "cabl",
+              "sensor"
+            ]
+          },
+          {
+            "ticker": "CIEN",
+            "sector": "Information Technology",
+            "why": [
+              "platform softwar",
+              "provid hardwar",
+              "hardwar softwar",
+              "interconnect",
+              "technolog compani"
+            ]
+          },
+          {
+            "ticker": "GRMN",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "schaffhausen",
+              "schaffhausen switzerland",
+              "base schaffhausen",
+              "switzerland",
+              "sensor"
+            ]
+          },
+          {
+            "ticker": "MMM",
+            "sector": "Industrials",
+            "why": [
+              "vehicl safeti",
+              "protect solut",
+              "safeti",
+              "interconnect",
+              "vehicl"
+            ]
+          },
+          {
+            "ticker": "APH",
+            "sector": "Information Technology",
+            "why": [
+              "cabl manag",
+              "distribut system",
+              "interconnect",
+              "cabl",
+              "system compani"
+            ]
+          }
+        ],
+        "why": "TEL (Information Technology): tool servic, plc, 2011, cabl, sensor; CIEN (Information Technology): platform softwar, provid hardwar, hardwar softwar, interconnect, technolog compani; MMM (Industrials): vehicl safeti, protect solut, safeti, interconnect, vehicl"
+      },
+      {
+        "ticker": "AXON",
+        "name": "Axon Enterprise",
+        "sector": "Industrials",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "MSI",
+            "sector": "Information Technology",
+            "why": [
+              "public safeti",
+              "provid public",
+              "camera",
+              "devic softwar",
+              "softwar servic"
+            ]
+          },
+          {
+            "ticker": "BBY",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "drone",
+              "warranti relat",
+              "virtual realiti",
+              "realiti",
+              "warranti"
+            ]
+          },
+          {
+            "ticker": "VZ",
+            "sector": "Communication Services",
+            "why": [
+              "devic segment",
+              "connect devic",
+              "government entiti",
+              "government",
+              "resel"
+            ]
+          },
+          {
+            "ticker": "FAST",
+            "sector": "Industrials",
+            "why": [
+              "state local",
+              "government entiti",
+              "feder state",
+              "feder",
+              "government"
+            ]
+          },
+          {
+            "ticker": "ZBRA",
+            "sector": "Information Technology",
+            "why": [
+              "camera fix",
+              "camera",
+              "base softwar",
+              "captur",
+              "fix"
+            ]
+          }
+        ],
+        "why": "MSI (Information Technology): public safeti, provid public, camera, devic softwar, softwar servic; BBY (Consumer Discretionary): drone, warranti relat, virtual realiti, realiti, warranti; VZ (Communication Services): devic segment, connect devic, government entiti, government, resel"
+      },
+      {
+        "ticker": "BBY",
+        "name": "Best Buy",
+        "sector": "Consumer Discretionary",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "WMT",
+            "sector": "Consumer Staples",
+            "why": [
+              "ca",
+              "membership",
+              "com",
+              "outdoor live",
+              "babi"
+            ]
+          },
+          {
+            "ticker": "META",
+            "sector": "Communication Services",
+            "why": [
+              "realiti",
+              "glass",
+              "virtual realiti",
+              "augment realiti",
+              "audio"
+            ]
+          },
+          {
+            "ticker": "SNDK",
+            "sector": "Information Technology",
+            "why": [
+              "mobil phone",
+              "desktop notebook",
+              "phone",
+              "notebook",
+              "portabl"
+            ]
+          },
+          {
+            "ticker": "TGT",
+            "sector": "Consumer Staples",
+            "why": [
+              "luggag",
+              "babi",
+              "product store",
+              "com",
+              "essenti"
+            ]
+          },
+          {
+            "ticker": "WSM",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "entertain product",
+              "product home",
+              "essenti",
+              "outdoor",
+              "brand name"
+            ]
+          }
+        ],
+        "why": "WMT (Consumer Staples): ca, membership, com, outdoor live, babi; META (Communication Services): realiti, glass, virtual realiti, augment realiti, audio; SNDK (Information Technology): mobil phone, desktop notebook, phone, notebook, portabl"
+      },
+      {
+        "ticker": "BE",
+        "name": "Bloom Energy",
+        "sector": "Industrials",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "DUK",
+            "sector": "Utilities",
+            "why": [
+              "energi corpor",
+              "corp chang",
+              "2006",
+              "corp",
+              "power gener"
+            ]
+          },
+          {
+            "ticker": "SMCI",
+            "sector": "Information Technology",
+            "why": [
+              "indirect sale",
+              "server",
+              "direct indirect",
+              "jose california",
+              "jose"
+            ]
+          },
+          {
+            "ticker": "CMI",
+            "sector": "Industrials",
+            "why": [
+              "fuel cell",
+              "2001",
+              "combust",
+              "oxid",
+              "fuel"
+            ]
+          },
+          {
+            "ticker": "FSLR",
+            "sector": "Information Technology",
+            "why": [
+              "2006",
+              "convert",
+              "industri compani",
+              "manufactur sell",
+              "design manufactur"
+            ]
+          },
+          {
+            "ticker": "LNT",
+            "sector": "Utilities",
+            "why": [
+              "energi corpor",
+              "gener unit",
+              "corp chang",
+              "corp",
+              "natur ga"
+            ]
+          }
+        ],
+        "why": "DUK (Utilities): energi corpor, corp chang, 2006, corp, power gener; SMCI (Information Technology): indirect sale, server, direct indirect, jose california, jose; FSLR (Information Technology): 2006, convert, industri compani, manufactur sell, design manufactur"
+      },
+      {
+        "ticker": "BG",
+        "name": "Bunge Global",
+        "sector": "Consumer Staples",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "ADM",
+            "sector": "Consumer Staples",
+            "why": [
+              "oilse",
+              "soybean",
+              "wheat",
+              "grain",
+              "corn wheat"
+            ]
+          },
+          {
+            "ticker": "NSC",
+            "sector": "Industrials",
+            "why": [
+              "soybean",
+              "wheat",
+              "fertil",
+              "corn",
+              "feed"
+            ]
+          },
+          {
+            "ticker": "MPC",
+            "sector": "Energy",
+            "why": [
+              "refin",
+              "refin market",
+              "distribut refin",
+              "distribut market",
+              "purchas"
+            ]
+          },
+          {
+            "ticker": "VLO",
+            "sector": "Energy",
+            "why": [
+              "refin",
+              "refin market",
+              "grain",
+              "anim feed",
+              "corn"
+            ]
+          },
+          {
+            "ticker": "UNP",
+            "sector": "Industrials",
+            "why": [
+              "grain",
+              "biofuel",
+              "fertil",
+              "anim",
+              "merchandis"
+            ]
+          }
+        ],
+        "why": "NSC (Industrials): soybean, wheat, fertil, corn, feed; MPC (Energy): refin, refin market, distribut refin, distribut market, purchas; VLO (Energy): refin, refin market, grain, anim feed, corn"
+      },
+      {
+        "ticker": "CVNA",
+        "name": "Carvana",
+        "sector": "Consumer Discretionary",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "COIN",
+            "sector": "Financials",
+            "why": [
+              "2012 base",
+              "found 2012",
+              "2012",
+              "platform",
+              "base"
+            ]
+          },
+          {
+            "ticker": "DASH",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "fulfil",
+              "custom support",
+              "commerc platform",
+              "acquisit",
+              "subsidiari oper"
+            ]
+          },
+          {
+            "ticker": "GEN",
+            "sector": "Information Technology",
+            "why": [
+              "temp",
+              "temp arizona",
+              "arizona",
+              "support servic",
+              "onlin"
+            ]
+          },
+          {
+            "ticker": "GDDY",
+            "sector": "Information Technology",
+            "why": [
+              "temp",
+              "temp arizona",
+              "search",
+              "arizona",
+              "onlin"
+            ]
+          },
+          {
+            "ticker": "CPRT",
+            "sector": "Industrials",
+            "why": [
+              "auction",
+              "car",
+              "inspect",
+              "vehicl",
+              "buy"
+            ]
+          }
+        ],
+        "why": "COIN (Financials): 2012 base, found 2012, 2012, platform, base; GEN (Information Technology): temp, temp arizona, arizona, support servic, onlin; GDDY (Information Technology): temp, temp arizona, search, arizona, onlin"
+      },
+      {
+        "ticker": "CBRE",
+        "name": "CBRE Group",
+        "sector": "Real Estate",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "CSGP",
+            "sector": "Real Estate",
+            "why": [
+              "owner investor",
+              "offic industri",
+              "industri retail",
+              "leas administr",
+              "pension fund"
+            ]
+          },
+          {
+            "ticker": "MS",
+            "sector": "Financials",
+            "why": [
+              "servic origin",
+              "fund insur",
+              "foundat endow",
+              "wealth fund",
+              "sovereign wealth"
+            ]
+          },
+          {
+            "ticker": "NTRS",
+            "sector": "Financials",
+            "why": [
+              "fund foundat",
+              "compani sovereign",
+              "foundat endow",
+              "wealth fund",
+              "sovereign wealth"
+            ]
+          },
+          {
+            "ticker": "AON",
+            "sector": "Financials",
+            "why": [
+              "strateg advic",
+              "pension",
+              "advic",
+              "offer strateg",
+              "advisori servic"
+            ]
+          },
+          {
+            "ticker": "RF",
+            "sector": "Financials",
+            "why": [
+              "estat develop",
+              "commerci real",
+              "advisori servic",
+              "financ servic",
+              "investor"
+            ]
+          }
+        ],
+        "why": "MS (Financials): servic origin, fund insur, foundat endow, wealth fund, sovereign wealth; NTRS (Financials): fund foundat, compani sovereign, foundat endow, wealth fund, sovereign wealth; AON (Financials): strateg advic, pension, advic, offer strateg, advisori servic"
+      },
+      {
+        "ticker": "CF",
+        "name": "CF Industries",
+        "sector": "Materials",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "IEX",
+            "sector": "Industrials",
+            "why": [
+              "northbrook",
+              "northbrook illinoi",
+              "headquart northbrook",
+              "fluid",
+              "illinoi"
+            ]
+          },
+          {
+            "ticker": "ALL",
+            "sector": "Financials",
+            "why": [
+              "northbrook",
+              "northbrook illinoi",
+              "headquart northbrook",
+              "illinoi",
+              "independ"
+            ]
+          },
+          {
+            "ticker": "MOS",
+            "sector": "Materials",
+            "why": [
+              "nitrogen product",
+              "nitrogen",
+              "cooper",
+              "independ",
+              "wholesal"
+            ]
+          },
+          {
+            "ticker": "MU",
+            "sector": "Information Technology",
+            "why": [
+              "retail independ",
+              "europ intern",
+              "segment compani",
+              "independ",
+              "intern oper"
+            ]
+          },
+          {
+            "ticker": "COO",
+            "sector": "Health Care",
+            "why": [
+              "fertil",
+              "cooper",
+              "independ",
+              "distributor",
+              "compani found"
+            ]
+          }
+        ],
+        "why": "IEX (Industrials): northbrook, northbrook illinoi, headquart northbrook, fluid, illinoi; ALL (Financials): northbrook, northbrook illinoi, headquart northbrook, illinoi, independ; MU (Information Technology): retail independ, europ intern, segment compani, independ, intern oper"
+      },
+      {
+        "ticker": "CPRT",
+        "name": "Copart",
+        "sector": "Industrials",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "F",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "vehicl",
+              "offer wholesal",
+              "car compani",
+              "car",
+              "rental car"
+            ]
+          },
+          {
+            "ticker": "BKNG",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "reserv",
+              "provid onlin",
+              "rental car",
+              "servic onlin",
+              "car"
+            ]
+          },
+          {
+            "ticker": "GM",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "car",
+              "car compani",
+              "rental car",
+              "fleet",
+              "dealer"
+            ]
+          },
+          {
+            "ticker": "CVNA",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "auction",
+              "car",
+              "inspect",
+              "vehicl",
+              "buy"
+            ]
+          },
+          {
+            "ticker": "CSGP",
+            "sector": "Real Estate",
+            "why": [
+              "onlin auction",
+              "auction",
+              "auction platform",
+              "com",
+              "view"
+            ]
+          }
+        ],
+        "why": "F (Consumer Discretionary): vehicl, offer wholesal, car compani, car, rental car; BKNG (Consumer Discretionary): reserv, provid onlin, rental car, servic onlin, car; GM (Consumer Discretionary): car, car compani, rental car, fleet, dealer"
+      },
+      {
+        "ticker": "ECL",
+        "name": "Ecolab",
+        "sector": "Materials",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "ROL",
+            "sector": "Industrials",
+            "why": [
+              "pest",
+              "provid pest",
+              "insect",
+              "rodent insect",
+              "rodent"
+            ]
+          },
+          {
+            "ticker": "MMM",
+            "sector": "Industrials",
+            "why": [
+              "saint paul",
+              "paul minnesota",
+              "paul",
+              "hygien",
+              "headquart saint"
+            ]
+          },
+          {
+            "ticker": "KMB",
+            "sector": "Consumer Staples",
+            "why": [
+              "sanit",
+              "person care",
+              "lodg",
+              "brand name",
+              "name compani"
+            ]
+          },
+          {
+            "ticker": "AWK",
+            "sector": "Utilities",
+            "why": [
+              "offer water",
+              "provid water",
+              "water",
+              "water treatment",
+              "food beverag"
+            ]
+          },
+          {
+            "ticker": "YUM",
+            "sector": "Consumer Discretionary",
+            "why": [
+              "quick servic",
+              "quick",
+              "servic restaur",
+              "restaur",
+              "global"
+            ]
+          }
+        ],
+        "why": "ROL (Industrials): pest, provid pest, insect, rodent insect, rodent; MMM (Industrials): saint paul, paul minnesota, paul, hygien, headquart saint; KMB (Consumer Staples): sanit, person care, lodg, brand name, name compani"
+      },
+      {
+        "ticker": "FSLR",
+        "name": "First Solar",
+        "sector": "Information Technology",
+        "purity": 0.1,
+        "neighbors": [
+          {
+            "ticker": "FCX",
+            "sector": "Materials",
+            "why": [
+              "headquart phoenix",
+              "phoenix",
+              "phoenix arizona",
+              "chile",
+              "arizona"
+            ]
+          },
+          {
+            "ticker": "PNW",
+            "sector": "Utilities",
+            "why": [
+              "headquart phoenix",
+              "phoenix",
+              "phoenix arizona",
+              "arizona",
+              "solar"
+            ]
+          },
+          {
+            "ticker": "PEG",
+            "sector": "Utilities",
+            "why": [
+              "pv solar",
+              "pv",
+              "solar",
+              "commerci industri",
+              "electr"
+            ]
+          },
+          {
+            "ticker": "BE",
+            "sector": "Industrials",
+            "why": [
+              "2006",
+              "convert",
+              "industri compani",
+              "manufactur sell",
+              "design manufactur"
+            ]
+          },
+          {
+            "ticker": "EXC",
+            "sector": "Utilities",
+            "why": [
+              "1999 headquart",
+              "1999",
+              "commerci industri",
+              "electr",
+              "util"
+            ]
+          }
+        ],
+        "why": "FCX (Materials): headquart phoenix, phoenix, phoenix arizona, chile, arizona; PNW (Utilities): headquart phoenix, phoenix, phoenix arizona, arizona, solar; PEG (Utilities): pv solar, pv, solar, commerci industri, electr"
+      }
+    ],
+    "centrality_top20": {
+      "pagerank": [
+        {
+          "ticker": "JPM",
+          "name": "JPMorgan Chase",
+          "sector": "Financials",
+          "pagerank": 0.008547734789972821
+        },
+        {
+          "ticker": "KEY",
+          "name": "KeyCorp",
+          "sector": "Financials",
+          "pagerank": 0.008348350328220608
+        },
+        {
+          "ticker": "BAC",
+          "name": "Bank of America",
+          "sector": "Financials",
+          "pagerank": 0.00800105016208777
+        },
+        {
+          "ticker": "PNC",
+          "name": "PNC Financial Services",
+          "sector": "Financials",
+          "pagerank": 0.007366482805915676
+        },
+        {
+          "ticker": "FITB",
+          "name": "Fifth Third Bancorp",
+          "sector": "Financials",
+          "pagerank": 0.007033862662672224
+        },
+        {
+          "ticker": "RF",
+          "name": "Regions Financial Corporation",
+          "sector": "Financials",
+          "pagerank": 0.00688853907365419
+        },
+        {
+          "ticker": "WEC",
+          "name": "WEC Energy Group",
+          "sector": "Utilities",
+          "pagerank": 0.0066786240748413885
+        },
+        {
+          "ticker": "MTB",
+          "name": "M&T Bank",
+          "sector": "Financials",
+          "pagerank": 0.0066098570807810305
+        },
+        {
+          "ticker": "CFG",
+          "name": "Citizens Financial Group",
+          "sector": "Financials",
+          "pagerank": 0.005835043969412284
+        },
+        {
+          "ticker": "SRE",
+          "name": "Sempra",
+          "sector": "Utilities",
+          "pagerank": 0.005630034463297048
+        },
+        {
+          "ticker": "NEE",
+          "name": "NextEra Energy",
+          "sector": "Utilities",
+          "pagerank": 0.005491876449231626
+        },
+        {
+          "ticker": "DTE",
+          "name": "DTE Energy",
+          "sector": "Utilities",
+          "pagerank": 0.005401671457495227
+        },
+        {
+          "ticker": "C",
+          "name": "Citigroup",
+          "sector": "Financials",
+          "pagerank": 0.005362426769944011
+        },
+        {
+          "ticker": "AEE",
+          "name": "Ameren",
+          "sector": "Utilities",
+          "pagerank": 0.00508328423547456
+        },
+        {
+          "ticker": "AEP",
+          "name": "American Electric Power",
+          "sector": "Utilities",
+          "pagerank": 0.0049164688789287295
+        },
+        {
+          "ticker": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "pagerank": 0.004813930187533331
+        },
+        {
+          "ticker": "DUK",
+          "name": "Duke Energy",
+          "sector": "Utilities",
+          "pagerank": 0.0048075418683135845
+        },
+        {
+          "ticker": "ANET",
+          "name": "Arista Networks",
+          "sector": "Information Technology",
+          "pagerank": 0.004693182225448311
+        },
+        {
+          "ticker": "SJM",
+          "name": "J.M. Smucker Company (The)",
+          "sector": "Consumer Staples",
+          "pagerank": 0.004508705993798639
+        },
+        {
+          "ticker": "NI",
+          "name": "NiSource",
+          "sector": "Utilities",
+          "pagerank": 0.004484810995518154
+        }
+      ],
+      "hub": [
+        {
+          "ticker": "KEY",
+          "name": "KeyCorp",
+          "sector": "Financials",
+          "hub": 0.04449451105993817
+        },
+        {
+          "ticker": "JPM",
+          "name": "JPMorgan Chase",
+          "sector": "Financials",
+          "hub": 0.043310038372582696
+        },
+        {
+          "ticker": "FITB",
+          "name": "Fifth Third Bancorp",
+          "sector": "Financials",
+          "hub": 0.0422357015286465
+        },
+        {
+          "ticker": "RF",
+          "name": "Regions Financial Corporation",
+          "sector": "Financials",
+          "hub": 0.04179420362525981
+        },
+        {
+          "ticker": "CFG",
+          "name": "Citizens Financial Group",
+          "sector": "Financials",
+          "hub": 0.04149377856556748
+        },
+        {
+          "ticker": "PNC",
+          "name": "PNC Financial Services",
+          "sector": "Financials",
+          "hub": 0.04084899652513139
+        },
+        {
+          "ticker": "BAC",
+          "name": "Bank of America",
+          "sector": "Financials",
+          "hub": 0.03879653691759671
+        },
+        {
+          "ticker": "MTB",
+          "name": "M&T Bank",
+          "sector": "Financials",
+          "hub": 0.03775839154896435
+        },
+        {
+          "ticker": "HBAN",
+          "name": "Huntington Bancshares",
+          "sector": "Financials",
+          "hub": 0.03491093608845274
+        },
+        {
+          "ticker": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "hub": 0.03438196859433783
+        },
+        {
+          "ticker": "C",
+          "name": "Citigroup",
+          "sector": "Financials",
+          "hub": 0.03198471231450567
+        },
+        {
+          "ticker": "TFC",
+          "name": "Truist Financial",
+          "sector": "Financials",
+          "hub": 0.030869687264024885
+        },
+        {
+          "ticker": "COF",
+          "name": "Capital One",
+          "sector": "Financials",
+          "hub": 0.028585575628607144
+        },
+        {
+          "ticker": "USB",
+          "name": "U.S. Bancorp",
+          "sector": "Financials",
+          "hub": 0.028250044384068352
+        },
+        {
+          "ticker": "RJF",
+          "name": "Raymond James Financial",
+          "sector": "Financials",
+          "hub": 0.028098200727623226
+        },
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo",
+          "sector": "Financials",
+          "hub": 0.027832734812946968
+        },
+        {
+          "ticker": "BNY",
+          "name": "BNY Mellon",
+          "sector": "Financials",
+          "hub": 0.027121411145752596
+        },
+        {
+          "ticker": "MS",
+          "name": "Morgan Stanley",
+          "sector": "Financials",
+          "hub": 0.02688680500621549
+        },
+        {
+          "ticker": "SCHW",
+          "name": "Charles Schwab Corporation",
+          "sector": "Financials",
+          "hub": 0.023288865085563833
+        },
+        {
+          "ticker": "NTRS",
+          "name": "Northern Trust",
+          "sector": "Financials",
+          "hub": 0.019481765434366444
+        }
+      ],
+      "authority": [
+        {
+          "ticker": "KEY",
+          "name": "KeyCorp",
+          "sector": "Financials",
+          "authority": 0.06915450702592592
+        },
+        {
+          "ticker": "JPM",
+          "name": "JPMorgan Chase",
+          "sector": "Financials",
+          "authority": 0.06725199682491809
+        },
+        {
+          "ticker": "BAC",
+          "name": "Bank of America",
+          "sector": "Financials",
+          "authority": 0.06719401454220045
+        },
+        {
+          "ticker": "PNC",
+          "name": "PNC Financial Services",
+          "sector": "Financials",
+          "authority": 0.06083275482915145
+        },
+        {
+          "ticker": "FITB",
+          "name": "Fifth Third Bancorp",
+          "sector": "Financials",
+          "authority": 0.059710361336714056
+        },
+        {
+          "ticker": "RF",
+          "name": "Regions Financial Corporation",
+          "sector": "Financials",
+          "authority": 0.05775678938777405
+        },
+        {
+          "ticker": "MTB",
+          "name": "M&T Bank",
+          "sector": "Financials",
+          "authority": 0.05618575927355333
+        },
+        {
+          "ticker": "CFG",
+          "name": "Citizens Financial Group",
+          "sector": "Financials",
+          "authority": 0.04577482151354048
+        },
+        {
+          "ticker": "C",
+          "name": "Citigroup",
+          "sector": "Financials",
+          "authority": 0.03978465711691706
+        },
+        {
+          "ticker": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "authority": 0.03451652523246286
+        },
+        {
+          "ticker": "MS",
+          "name": "Morgan Stanley",
+          "sector": "Financials",
+          "authority": 0.032614604328983506
+        },
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo",
+          "sector": "Financials",
+          "authority": 0.03191724628729538
+        },
+        {
+          "ticker": "HBAN",
+          "name": "Huntington Bancshares",
+          "sector": "Financials",
+          "authority": 0.028184646891136297
+        },
+        {
+          "ticker": "RJF",
+          "name": "Raymond James Financial",
+          "sector": "Financials",
+          "authority": 0.02482134776401242
+        },
+        {
+          "ticker": "TFC",
+          "name": "Truist Financial",
+          "sector": "Financials",
+          "authority": 0.024789772559405374
+        },
+        {
+          "ticker": "NTRS",
+          "name": "Northern Trust",
+          "sector": "Financials",
+          "authority": 0.022178922803207633
+        },
+        {
+          "ticker": "SCHW",
+          "name": "Charles Schwab Corporation",
+          "sector": "Financials",
+          "authority": 0.02146068622757708
+        },
+        {
+          "ticker": "BNY",
+          "name": "BNY Mellon",
+          "sector": "Financials",
+          "authority": 0.01996638003385026
+        },
+        {
+          "ticker": "USB",
+          "name": "U.S. Bancorp",
+          "sector": "Financials",
+          "authority": 0.017459486894696438
+        },
+        {
+          "ticker": "STT",
+          "name": "State Street Corporation",
+          "sector": "Financials",
+          "authority": 0.01733630790082248
+        }
+      ]
+    }
+  }
+}

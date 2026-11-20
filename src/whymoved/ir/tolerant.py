@@ -56,14 +56,16 @@ def normalize_name(name: str) -> str:
 class EntityIndex:
     """Company names / tickers / aliases with 2- and 3-gram indexes."""
 
-    def __init__(self, companies: Iterable[dict[str, str]]) -> None:
+    def __init__(self, companies: Iterable[dict[str, str]], first_word_alias: bool = True,
+                 extra_aliases: dict[str, list[str]] | None = None) -> None:
         self.terms: dict[str, set[str]] = defaultdict(set)  # surface form -> tickers
         for c in companies:
             t = c["ticker"]
             forms = {t.lower(), normalize_name(c["name"])}
             first = normalize_name(c["name"]).split(" ")[0] if normalize_name(c["name"]) else ""
-            if first:
+            if first and first_word_alias:
                 forms.add(first)
+            forms.update(normalize_name(a) for a in (extra_aliases or {}).get(t, []))
             for f in forms:
                 if f:
                     self.terms[f].add(t)

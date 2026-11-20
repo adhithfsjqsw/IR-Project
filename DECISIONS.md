@@ -66,3 +66,9 @@ Every non-obvious decision, with the reason. Newest at the bottom of each sectio
 - Prices: 8 current constituents have no price history in the window (recent listings: FDXF, GEV, HONA, Q, RDDT, SNDK, SOLV, VYLR);
   they are excluded from H2 sector means and from text-peer means automatically (NaN-aware).
 - Moves: market-model z over 30,120 ticker-days has mean -0.006 and std 1.049; 425 moves flagged (120 DEV, 305 TEST).
+
+## Add-on (shock mode, peers, search hardening)
+- **Ordering deviation.** The add-on says to start after base gates 1-6 pass. Those gates are blocked on `EDGAR_USER_AGENT`
+  (not set in this session). Add-on phases 9.1-9.3, 10, 11, 12 need only prices + FNSPID headlines, so they are built now;
+  Phase 13 (peer events) and the 8-K parts of 9.4 wait for the base gate.
+- Sector ETFs: XLRE and XLC are ignored (short history). Shock module has its own DEV (<=2014) / TEST (2015+) split.

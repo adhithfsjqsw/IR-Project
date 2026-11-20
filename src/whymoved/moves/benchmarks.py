@@ -89,7 +89,7 @@ def main() -> dict:
         for metric, arr in (("roc_auc", auc_b), ("pr_auc", ap_b)):
             d = arr[a] - arr[b_]
             p = 2 * min(np.nanmean(d <= 0), np.nanmean(d >= 0))
-            res["paired"][f"{a} - {b_} [{metric}]"] = {"mean_diff": float(np.nanmean(d)), "p": float(max(p, 1 / B))}
+            res["paired"][f"{a} - {b_} [{metric}]"] = {"mean_diff": float(np.nanmean(d)), "p": float(min(1.0, max(p, 1 / B)))}
     tab = pd.DataFrame(rows)
     save_table(tab, "h2_models")
     update_results("h2", res)

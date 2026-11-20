@@ -28,3 +28,13 @@ def test_tz_aware_input():
 
 def test_past_calendar_end():
     assert effective_day("2021-12-07 23:00:00", CAL) is None
+
+
+def test_vectorised_matches_scalar():
+    import pandas as pd
+    from whymoved.data.calendar import effective_days_vec
+    ts = pd.Series(pd.to_datetime(["2021-12-03 14:00:00", "2021-12-03 22:00:00", "2021-12-04 15:00:00",
+                                   "2021-12-02 21:00:00", "2021-12-07 23:00:00"], utc=True))
+    v = effective_days_vec(ts, CAL).tolist()
+    ref = [effective_day(t, CAL) for t in ts]
+    assert [None if pd.isna(a) else a for a in v] == ref

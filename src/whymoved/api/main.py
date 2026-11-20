@@ -18,6 +18,10 @@ from ..ir.tolerant import EntityIndex
 from .schemas import (Entity, ExplainResponse, Explanation, FeedbackRequest, Move, PeerOut, PeersResponse)
 
 app = FastAPI(title="WhyMoved API", description="Not investment advice.")
+from .search import router as search_router  # noqa: E402
+from .shock import router as shock_router  # noqa: E402
+app.include_router(search_router)
+app.include_router(shock_router)
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
                    allow_methods=["*"], allow_headers=["*"])
 

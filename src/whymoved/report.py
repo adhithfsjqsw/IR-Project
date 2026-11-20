@@ -129,6 +129,8 @@ def results_md(R: dict[str, Any]) -> str:
         r = R["reputation"]
         L += ["## Source reputation (DEV)", "", f"global confirmation rate {r['global_rate']:.3f} over {r['n_news_on_8k_days_dev']} news items.", "",
               md(pd.DataFrame(r["table"]).head(20)), ""]
+    from .report_shock import shock_md
+    L += shock_md(R)
     return "\n".join(L)
 
 
@@ -183,6 +185,16 @@ def report_md(R: dict[str, Any]) -> str:
          "item numbers and titles removed to prevent label leakage. **Sectors.** TF-IDF (1-2 grams) on descriptions, spherical k-means with k-means++, "
          "average-linkage clustering, PageRank/HITS on a directed 10-NN graph (power iteration). **H2.** Three rolling models M0 (market), M1 (+ GICS-sector mean), "
          "M2 (+ text-peer mean); score = |z|; target = an 8-K is effective for the ticker-day.", "",
+         "### 4b. Add-on methods (shock mode, search hardening)", "",
+         "**Shock days.** A market-wide shock day has |z_SPY| >= 2.5 and |r_SPY| >= 1.5% (z uses the previous 60 trading days, lagged one day) or a one-day VIX-change z >= 3; "
+         "shock days within 10 trading days form one episode. **Features** use data up to the close of day t only (returns, drawdown, realised volatility, VIX level and changes, "
+         "sector dispersion, breadth, sector-relative returns, volume ratio), standardised with a scaler fitted on DEV (<= 2014) and then frozen. "
+         "**Day documents** concatenate up to 400 FNSPID headlines per effective trading day (extra stop words: tickers, company and publisher names, months, weekdays); "
+         "T1 is TF-IDF with IDF frozen on DEV; T2 (*burst weighting*) divides the term frequency by its mean over the previous 60 trading days (+1) before applying IDF. "
+         "**Library rule (no look-ahead).** For a query shock day q the library holds shock days whose 20-day forward window finished before q and that belong to a different episode. "
+         "**Fusion** z-scores the numeric and text similarities within the library and mixes them with a DEV-tuned weight; reciprocal rank fusion is also reported. "
+         "Uncertainty uses an episode-block bootstrap. **Search hardening.** A seeded, rule-based corruption benchmark for tolerant retrieval, an efficiency benchmark against a brute-force reference, "
+         "and gap + variable-byte postings compression.", "",
          "## 5. Experiments", "",
          "H1 ablations A0..A6 and H2 models M0..M2 are evaluated on TEST only, with 1000-resample bootstrap 95% CIs over moves (H1) or ticker-days (H2) and paired bootstrap tests. "
          "Supporting experiments: text clusters vs GICS (NMI, ARI, purity, with a label-shuffled baseline), sector classification (5-fold CV), cause classification.", "",
@@ -209,6 +221,13 @@ def report_md(R: dict[str, Any]) -> str:
               f"![dendrogram]({fig('dendrogram.png')})", "", f"![confusion]({fig('sector_confusion.png')})", "",
               f"![projection by GICS]({fig('proj_gics.png')})", "", f"![projection by cluster]({fig('proj_kmeans.png')})", "",
               f"![k scan]({fig('kmeans_scan.png')})", ""]
+    from .report_shock import shock_verdicts
+    sv = shock_verdicts(R)
+    if sv:
+        L += ["### Add-on: shock mode (H3-H5)", "", *[sv[k] + "\n" for k in ("H3", "H5", "H4", "era") if k in sv],
+              "Full tables (per k and subset, with CIs, n_queries and n_episodes) are in `RESULTS.md`. Analogs are descriptive, not a forecast.", ""]
+        if (REPORTS / "figures" / "shock_spy.png").exists():
+            L += ["![SPY with shock days](figures/shock_spy.png)", ""]
     L += ["See `RESULTS.md` for every table in full.", "",
           "## 7. Limitations", "",
           "- **Survivorship:** only current S&P 500 members are used.",
@@ -218,6 +237,11 @@ def report_md(R: dict[str, Any]) -> str:
           "- **8-K coverage:** 8-Ks cover only some event types; many large moves have no public explanation (the 'unexplained' flag is a heuristic).",
           "- **Association, not causality:** a same-day filing means a *likely* cause, not proven causality.",
           "- **Leakage from reaction news:** news written in reaction to the move can leak in (price-move headlines are measured by an optional ablation).",
+          "- **Shock mode:** few independent episodes (low statistical power); detection thresholds are set by hand and checked on DEV; sector ETFs start in Dec 1998, so earlier crashes are not covered; "
+          "FNSPID coverage and sources change over time (median headlines/day range from tens in 1999 to thousands around 2011), so text similarity is era-confounded; the day document mixes many unrelated stories; "
+          "the curated date list is a face-validity check, not ground truth; an 8-K fetch for all constituents would have survivorship bias (current constituents only).",
+          "- Related work for analog retrieval / nearest-neighbour forecasting and event studies: TODO: literature search on market analog / nearest-neighbour forecasting and event-study methods. "
+          "No novelty is claimed for analog retrieval; the contribution is the evaluation protocol (no-look-ahead library, episode-level uncertainty, era-confound checks) and the numeric+text fusion.",
           "- Cause-classifier labels derive from 8-K item numbers (removed from the text), so it learns filing language and transfers imperfectly to news.", "",
           "## 8. Conclusion", "", "See the verdict sentences above; null or negative results are reported as such. " + DISCLAIMER, ""]
     return "\n".join(L)

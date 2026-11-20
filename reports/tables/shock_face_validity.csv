@@ -1,0 +1,15 @@
+date,flagged_exact,flagged_pm2,z_spy,r_spy,note
+2000-04-14,True,True,-3.748233224746884,-0.057193143618782916,face-validity check only; user to verify against sources
+2001-09-17,True,True,-4.770847931583738,-0.052249406809946275,face-validity check only; user to verify against sources
+2008-09-29,True,True,-4.536817981736122,-0.07836213626414001,face-validity check only; user to verify against sources
+2008-10-15,True,True,-3.18576678975898,-0.09844746029564866,face-validity check only; user to verify against sources
+2010-05-06,True,True,-4.108691394635363,-0.033213296152036276,face-validity check only; user to verify against sources
+2011-08-08,True,True,-5.805984802859403,-0.06512309161943353,face-validity check only; user to verify against sources
+2015-08-24,True,True,-5.133123208456569,-0.042107005731456204,face-validity check only; user to verify against sources
+2018-02-05,True,True,-7.711438552858217,-0.04182224681647395,face-validity check only; user to verify against sources
+2018-12-24,False,True,-2.0078372799861253,-0.026422779244198336,face-validity check only; user to verify against sources
+2020-03-09,True,True,-5.47523382518013,-0.07809459527463669,face-validity check only; user to verify against sources
+2020-03-12,True,True,-4.8640070229011565,-0.09567702010608525,face-validity check only; user to verify against sources
+2020-03-16,True,True,-4.247201905942838,-0.10942370263039025,face-validity check only; user to verify against sources
+2022-06-13,False,False,-2.2832370212297364,-0.037968278539759814,face-validity check only; user to verify against sources
+2022-09-13,True,True,-3.250036081347888,-0.04348260060653275,face-validity check only; user to verify against sources

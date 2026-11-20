@@ -83,3 +83,8 @@ def test_evaluator_end_to_end_on_toy_index():
         res = ev.run(mv, System("A2"), mode)
         assert len(res) == 1 and res.rr.iloc[0] == 1.0
     assert len(ev.run(mv.assign(ticker="BBB"), System("A2"), "hard")) == 0  # no gold -> skipped
+
+
+def test_paired_bootstrap_p_never_exceeds_one():
+    x = np.zeros(40)
+    assert paired_bootstrap_p(x, x)[1] <= 1.0

@@ -22,7 +22,7 @@ Node 18+ is needed only for the UI.
 
 | Step | Command | What it does | Approx. runtime* |
 |---|---|---|---|
-| tests | `make test` | 26+ unit tests (IR core, classifiers, k-means, PageRank/HITS vs networkx, calendar) | 10 s |
+| tests | `make test` | 34 tests: IR core, classifiers, k-means, PageRank/HITS vs networkx, calendar, market model, plus a 1-minute SYNTHETIC end-to-end smoke test (temp dir; never touches real outputs) | ~1 min |
 | data | `make data` | companies, descriptions, prices, FNSPID (≈23 GB download), EDGAR 8-Ks, docs, gold | 40–90 min first run, then seconds |
 | index | `make index` | positional inverted index → `data/processed/index.pkl` | 1–2 min |
 | moves | `make moves` | rolling market model, flagged moves, sanity checks | seconds |

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import random
 from pathlib import Path
 from typing import Any
@@ -10,9 +11,10 @@ import numpy as np
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-DATA = ROOT / "data"
+# WHYMOVED_DATA / WHYMOVED_REPORTS let the synthetic smoke test run in a temp dir without touching real outputs
+DATA = Path(os.environ.get("WHYMOVED_DATA", ROOT / "data"))
 RAW, CACHE, INTERIM, PROCESSED = (DATA / n for n in ("raw", "cache", "interim", "processed"))
-REPORTS = ROOT / "reports"
+REPORTS = Path(os.environ.get("WHYMOVED_REPORTS", ROOT / "reports"))
 
 
 def load_config() -> dict[str, Any]:

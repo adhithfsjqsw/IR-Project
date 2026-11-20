@@ -32,7 +32,8 @@ class Searcher:
 
     def search(self, query: dict[str, float], days: list[str] | None, ticker: str | None = None,
                k: int = 10, method: str = "bm25", prf: dict | None = None, time_lambda: float = 0.0,
-               event_day: str | None = None, prior: Callable[[int], float] | None = None) -> list[Hit]:
+               event_day: str | None = None, prior: Callable[[int], float] | None = None,
+               exclude: set[int] | None = None) -> list[Hit]:
         """Run retrieval.
 
         prf: {"alpha","beta","m","t"} enables pseudo-relevance feedback (top-m of first pass).
@@ -41,6 +42,8 @@ class Searcher:
         """
         idx = self.idx
         allowed = allowed_docs(idx, days, ticker)
+        if exclude:
+            allowed = (set(range(idx.N)) if allowed is None else allowed) - exclude
         fn = bm25_scores if method == "bm25" else tfidf_scores
         kw = {"k1": self.k1, "b": self.b} if method == "bm25" else {}
         acc, contrib = fn(idx, query, allowed=allowed, **kw)

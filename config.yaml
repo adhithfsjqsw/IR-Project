@@ -1,0 +1,23 @@
+period: {start: "2021-01-01", end: "2023-12-29"}
+dev: {start: "2021-01-01", end: "2021-12-31"}
+test: {start: "2022-01-01", end: "2023-12-29"}
+price_start: "2020-06-01"
+price_end: "2023-12-31"
+n_attribution_tickers: 40
+max_per_sector: 4
+market_proxy: SPY
+estimation_window: 120
+estimation_gap: 11
+min_obs: 100
+z_threshold: 3.0
+min_abs_return: 0.02
+candidate_days_back: 1
+bm25: {k1: 1.2, b: 0.75}
+direction_weight: 0.4
+rocchio: {alpha: 1.0, beta: 0.75, m: 5, t: 10}
+time_lambda: 0.0
+peer_k: 10
+n_clusters: 11
+seed: 42
+fnspid_repo: "Zihan1004/FNSPID"
+fnspid_fallback: "simon-mellergaard/FNSPID_reduced"

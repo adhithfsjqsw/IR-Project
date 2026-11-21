@@ -72,3 +72,9 @@ Every non-obvious decision, with the reason. Newest at the bottom of each sectio
   (not set in this session). Add-on phases 9.1-9.3, 10, 11, 12 need only prices + FNSPID headlines, so they are built now;
   Phase 13 (peer events) and the 8-K parts of 9.4 wait for the base gate.
 - Sector ETFs: XLRE and XLC are ignored (short history). Shock module has its own DEV (<=2014) / TEST (2015+) split.
+- **Shock detector** thresholds are the config defaults (no adjustment needed: 187 days). 2022-06-13 is missed by the lagged-60-day z (2022 volatility was already high); not tuned to force a hit.
+- **Fusion weight** tuned on DEV came out as w = 1.0 (numeric only), so `fused` equals `num` on TEST. Regime clustering therefore uses a fixed 0.5 text weight, stated in results.
+- **Era/thin text:** headline volume is ~35/day in 1999 and thousands/day around 2011 (`reports/tables/headline_coverage.csv`); only ~3% of 2023 and a few 1999-2000 days are `thin_text`.
+- **Search feedback buttons** are not on the Search page (the base `/api/feedback` is explain-specific); shock analogs do have explicit Rocchio feedback.
+- **Bug fixed:** bootstrap p-values could exceed 1 when many resampled differences are exactly 0; now capped at 1 everywhere.
+- Shock analogs are only available for detected shock days (404 otherwise), not arbitrary dates.

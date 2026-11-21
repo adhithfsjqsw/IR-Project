@@ -25,3 +25,16 @@ ui:
 test:
 	$(PY) -m pytest -q
 all: data index moves eval classify sectors integrate report
+
+# ---- add-on targets ----
+search_bench:
+	$(PY) -m whymoved.ir.search_bench
+shock_data:
+	$(PY) -m whymoved.shock.data && $(PY) -m whymoved.shock.detect && $(PY) -m whymoved.shock.daydocs
+shock_eval:
+	$(PY) -m whymoved.shock.evaluate
+shock_regimes:
+	$(PY) -m whymoved.shock.regimes
+peer_events:
+	@echo "Phase 13 (peer events) is not implemented yet: it needs the base 8-K data (EDGAR_USER_AGENT)." && exit 1
+all_addon: search_bench shock_data shock_eval shock_regimes report

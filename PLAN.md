@@ -12,3 +12,14 @@
 | 8 | Report + handover | generator done (partial real results); final run pending |
 
 Cut order (if over budget): reputation, centrality UI panels, H2, React UI -> static HTML, 25 tickers.
+
+## Add-on status
+| Phase | Status |
+|---|---|
+| 9 Search hardening (tolerant bench, efficiency, VByte) | DONE; `/api/search` written but untested on real docs (needs base index) |
+| 10 Shock data/detection/day docs | DONE (187 shock days, 98 episodes, 13/14 curated hit) |
+| 11 Analogs H3/H5 | DONE, null results, era-confounded text |
+| 12 Regimes/archetypes/H4 | DONE, H4 not supported |
+| 13 Peer events (H6) | NOT DONE: needs base 8-K data + all-constituent news/8-K; `/api/peers/events` not implemented |
+| 14 API + UI | shock + search endpoints and pages done; peer-event section and search feedback buttons missing |
+| 15 Report | RESULTS.md/REPORT.md extended for 9-12 |

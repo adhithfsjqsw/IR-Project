@@ -31,7 +31,7 @@ article h3 { margin:6px 0; font-size:15px; }
 article p { margin:4px 0 8px; }
 mark { background:#fde68a; color:#111; }
 .badge { font-size:11px; padding:1px 7px; border-radius:10px; margin-right:6px; border:1px solid var(--line); }
-.badge.8k { background:var(--accent); color:#fff; }
+.badge[class~="8k"] { background:var(--accent); color:#fff; }
 .badge.goldb { background:var(--up); color:#fff; }
 .fig { max-width:100%; }
 .tip { background:var(--card); border:1px solid var(--line); padding:4px 8px; font-size:12px; }

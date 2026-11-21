@@ -48,6 +48,8 @@ const ABL = ["system", "n_moves", "rr", "recall@1", "recall@5", "recall@10", "nd
 export default function Evaluation() {
   const s = useAsync<Row>(() => get("/api/eval/summary"), []);
   const d = s.data;
+  const sh = useAsync<Row>(() => get("/api/eval/shock"), []);
+  const e = sh.data;
   return (
     <div>
       <h2>Evaluation (TEST 2022-2023, tuned on DEV 2021)</h2>
@@ -102,6 +104,23 @@ export default function Evaluation() {
           />
         </>
       )}
+      <h2>Add-on evaluation (shock mode and search)</h2>
+      <Status loading={sh.loading} error={sh.error} />
+      {e?.shock_analogs && (<>
+        <h3>H3 / H5 — analog retrieval (TEST 2015-2023, k=5, non-thin subset)</h3>
+        <p className="muted">{e.shock_analogs.subsets?.non_thin_all_methods?.n_queries} queries from {e.shock_analogs.subsets?.non_thin_all_methods?.n_episodes} independent episodes. 95% CIs by episode-block bootstrap.</p>
+        <Table rows={e.shock_analogs.table.filter((r: Row) => r.k === 5 && r.subset === "non_thin_all_methods")}
+          cols={["method", "p_at_k", "p_at_k_lo", "p_at_k_hi", "chance", "mae_ret", "spearman_ret", "p_at_k_diff_vs_vol", "p_at_k_p_vs_vol", "mean_year_gap", "share_same_era_pm2y"]} />
+      </>)}
+      {e?.shock_regimes?.h4 && (<>
+        <h3>H4 — text to regime classification</h3>
+        <Table rows={Object.entries(e.shock_regimes.h4.models).map(([m, v]: [string, any]) => ({ model: m, accuracy: v.accuracy, macro_f1: v.macro_f1, p_vs_majority: v.p_vs_majority, p_vs_era_only: v.p_vs_era_only }))}
+          cols={["model", "accuracy", "macro_f1", "p_vs_majority", "p_vs_era_only"]} />
+      </>)}
+      {e?.search_bench_tolerant && (<>
+        <h3>Tolerant retrieval benchmark</h3>
+        <Table rows={e.search_bench_tolerant.table.filter((r: Row) => r.kind === "all")} cols={["method", "n", "acc@1", "acc@3", "mrr", "median_latency_ms"]} />
+      </>)}
     </div>
   );
 }

@@ -30,6 +30,7 @@ export default function Explain({ ticker, setTicker }: { ticker: string; setTick
     sel ? () => get(`/api/explain?ticker=${sel.ticker}&date=${sel.date}&mode=${mode}`) : null,
     [sel, mode],
   );
+  const shock = useAsync<{ date: string }[]>(sel ? () => get(`/api/shock/days?start=${sel.date}&end=${sel.date}`) : null, [sel]);
   const shown = override ?? exp.data;
 
   const moreLikeThis = async (docId: number) => {
@@ -84,6 +85,7 @@ export default function Explain({ ticker, setTicker }: { ticker: string; setTick
             {override && <button onClick={() => setOverride(null)}>Reset feedback</button>}
           </div>
         )}
+        {shock.data && shock.data.length > 0 && <p className="warn">Market-wide shock day: SPY moved abnormally on {sel?.date}. This move is likely partly market-driven; see the Shock tab for similar past days.</p>}
         <Status loading={exp.loading} error={exp.error ?? fbErr} />
         {shown?.unexplained && (
           <p className="warn">

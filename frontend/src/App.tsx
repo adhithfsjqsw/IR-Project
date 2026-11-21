@@ -3,9 +3,11 @@ import Explain from "./pages/Explain";
 import Peers from "./pages/Peers";
 import Sectors from "./pages/Sectors";
 import Evaluation from "./pages/Evaluation";
+import Search from "./pages/Search";
+import Shock from "./pages/Shock";
 import { Status } from "./Status";
 
-const TABS = ["Explain", "Peers", "Sectors", "Evaluation"] as const;
+const TABS = ["Explain", "Search", "Shock", "Peers", "Sectors", "Evaluation"] as const;
 type Tab = (typeof TABS)[number];
 
 export default function App() {
@@ -23,6 +25,8 @@ export default function App() {
       </header>
       <main>
         {tab === "Explain" && <Explain ticker={ticker} setTicker={setTicker} />}
+        {tab === "Search" && <Search />}
+        {tab === "Shock" && <Shock />}
         {tab === "Peers" && <Peers ticker={ticker} setTicker={setTicker} />}
         {tab === "Sectors" && <Sectors />}
         {tab === "Evaluation" && <Evaluation />}

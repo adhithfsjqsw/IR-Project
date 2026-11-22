@@ -161,3 +161,55 @@ def test_query_builder():
     assert q["appl"] == 1.0 and q["beat"] == 0.4
     qd = build_query("Apple Inc.", "AAPL", direction=-1)
     assert "lawsuit" in qd and "recal" in qd and "beat" not in qd
+
+
+def test_event_lexicon_and_type_weights():
+    from whymoved.attribution.ablations import expected_random_mrr
+    from whymoved.ir.index import PositionalIndex
+    from whymoved.ir.query import build_query
+    from whymoved.ir.search import Searcher
+    q0, q1 = build_query("Acme Corp", "ACM"), build_query("Acme Corp", "ACM", event_weight=0.3)
+    assert set(q0) < set(q1) and all(q1[t] == 0.3 for t in set(q1) - set(q0))
+    idx = PositionalIndex()
+    a = idx.add_document("acme results", {"doc_type": "news", "effective_day": "2022-01-03"})
+    b = idx.add_document("acme results", {"doc_type": "8k", "effective_day": "2022-01-03"})
+    from whymoved.ir.tokenize import tokenize
+    s, qt = Searcher(idx), {tokenize("acme")[0]: 1.0}
+    assert [h.doc_id for h in s.search(qt, None, k=2)] == [a, b]            # tie -> lower id
+    assert s.search(qt, None, k=2, type_weights={"8k": 2.0})[0].doc_id == b  # prior reorders
+    # H_n/n: n=1 -> 1.0; n=2 -> (1 + 1/2)/2 = 0.75
+    assert expected_random_mrr([1]) == 1.0 and abs(expected_random_mrr([2]) - 0.75) < 1e-12
+
+
+def _burst_index():
+    from whymoved.ir.index import PositionalIndex
+    idx = PositionalIndex()
+    base = ["acme sells widgets", "acme widgets market", "acme quarterly widgets review"]
+    for i, t in enumerate(base):  # baseline days: generic coverage
+        idx.add_document(t, {"ticker": "ACM", "doc_type": "news", "effective_day": f"2022-01-0{i + 1}"})
+    ev = ["acme recall recall of widgets", "acme announces recall after safety probe"]
+    for t in ev:                  # event day: a recall story
+        idx.add_document(t, {"ticker": "ACM", "doc_type": "news", "effective_day": "2022-02-01"})
+    idx.add_document("other recall recall news", {"ticker": "ZZZ", "doc_type": "news", "effective_day": "2022-02-01"})
+    return idx
+
+
+def test_burst_terms_find_event_vocabulary_not_baseline_or_other_tickers():
+    from whymoved.ir.burst import burst_terms
+    from whymoved.ir.tokenize import tokenize
+    idx = _burst_index()
+    bt = burst_terms(idx, "ACM", ["2022-02-01"], ["2022-01-01", "2022-01-02", "2022-01-03"], n=5,
+                     exclude={tokenize("acme")[0]}, min_df=1)
+    assert tokenize("recall")[0] in bt and bt[tokenize("recall")[0]] == 1.0
+    assert tokenize("widgets")[0] not in bt                      # common in the baseline -> not a burst
+    assert burst_terms(idx, "ACM", ["2030-01-01"], [], 5) == {}   # no documents in the window -> no evidence
+
+
+def test_judged_metrics_and_label_parsing():
+    from whymoved.attribution.judged import metrics, parse_label
+    assert parse_label("YES") == "YES" and parse_label(" partial.") == "PARTIAL" and parse_label("maybe") is None
+    q = {1: 2, 2: 0, 3: 1}
+    m = metrics([1, 3, 2], q)                       # best docs first -> perfect nDCG
+    assert abs(m["ndcg10"] - 1.0) < 1e-9 and m["mrr"] == 1.0 and m["p5"] == 0.2
+    assert metrics([2, 3, 1], q)["mrr"] == 1 / 3     # first grade-2 doc is at rank 3
+    assert metrics([1], {1: 0, 2: 1}) is None        # nothing graded 2 -> move is skipped

@@ -58,6 +58,71 @@ def h1_verdict(h1: dict) -> str:
             f"paired-bootstrap p = {p:.3f} -> {s}.")
 
 
+def h1_extras_md(h: dict) -> list[str]:
+    """Random-baseline sanity floor + extra ablations (E1-E3). Empty if the run predates them."""
+    L: list[str] = []
+    re_ = h.get("random_expectation")
+    if re_:
+        L += ["### Random-baseline sanity floor", "",
+              "Exact expected MRR of a uniformly random ranking, H_n/n averaged over each move's candidate pool of n "
+              "documents (a lower bound when a move has several gold docs). The A0 row should match it up to sampling noise.", "",
+              md(pd.DataFrame([{"mode": m, "expected random MRR": round(v["expected_mrr"], 3),
+                                "median pool size": v["median_pool"]} for m, v in re_.items()])), "",
+              "In easy mode every candidate is already about the queried ticker, so a company-name query carries no "
+              "information there: BM25 name-only ranks documents by how often they repeat the name, which "
+              "favours news over formal 8-K filings. That is why A1/A2 can fall below the random floor in easy mode.", ""]
+    if "ablation_extra_hard" in h:
+        L += ["### Extra ablations (tuned on DEV; not part of the headline H1 comparison)", "",
+              "E1 adds a neutral event-vocabulary query expansion; E3 retries Rocchio with a small pseudo-relevant set; "
+              "E2 adds an 8-K document-type prior. **E2 is a diagnostic only:** the gold is always an 8-K, so an 8-K "
+              "prior is fitted to how this benchmark is built and would not transfer to moves without an 8-K. "
+              "**E1 needs the same caution:** event words (results, board, officer, ...) are the vocabulary of formal filings, "
+              "and in a check on TEST the share of hard-mode top-1 results that are 8-Ks rose from 2% (A5) to 30% (E1). "
+              "Its MRR gain therefore cannot be separated from simply preferring 8-K-style documents, which a benchmark "
+              "whose answer key is always an 8-K rewards. Read E1/E2 as an upper-bound diagnostic, not as evidence of "
+              "better explanatory retrieval; the headline H1 comparison stays A5 vs A2.", "",
+              "**Hard mode**", "", ablation_md(h["ablation_extra_hard"]), "",
+              "**Easy mode**", "", ablation_md(h["ablation_extra_easy"]), "",
+              f"Tuned on DEV: `{ {k: v for k, v in h['extras_tuned'].items() if k != 'grids'} }`", ""]
+    return L
+
+
+def judged_md(j: dict | None) -> list[str]:
+    """Judged-relevance evaluation (LLM-judged complete qrels, easy mode). Empty if it was not run."""
+    if not j:
+        return []
+    c, v, b = j["coverage"], j["judge_validation"], j["burst_tuned"]
+    pct = lambda x: "n/a" if x is None else f"{x:.0%}"
+    L = ["### Judged-relevance evaluation (easy mode, complete qrels)", "",
+         "The 8-K answer key marks only the filing as relevant, so news about the same event counts as a miss. Here every "
+         "document in a move's candidate pool is judged by a local LLM (qwen2.5:7b; gold 8-Ks are always relevant), which "
+         "makes the qrels complete. Grades: gold/YES = 2, PARTIAL = 1, NO = 0. **The judge is an LLM: its labels are noisy "
+         "and unverified by a human** (a 60-row spot-check sample is in `reports/tables/judge_review_sample.csv`).", "",
+         f"- Judged {c['docs_judged']} documents over {c['n_dev']} dev + {c['n_test']} test moves (mean pool {c['mean_pool']:.1f}); "
+         f"{c['moves_with_relevant']} moves have a relevant document; {pct(c['share_of_relevant_that_are_not_the_8k'])} of "
+         f"relevant documents are not the 8-K.",
+         f"- Judge validation (n={v['n']}): called the known-relevant gold 8-K relevant (YES) {pct(v['gold_judged_yes'])} of the time; "
+         f"called a random document of another ticker YES {pct(v['random_other_ticker_judged_yes'])} of the time; unparsable "
+         f"answers {pct(v['unparsed_rate'])}.",
+         f"- Burst parameters tuned on DEV (judged nDCG@10): weight {b['burst_w']}, {b['burst_n']} terms "
+         f"(dev nDCG@10 {b['dev_ndcg10']:.3f} vs A5 {b['dev_ndcg10_A5']:.3f}).",
+         *([f"- BM25 k1/b and time decay re-tuned on DEV: best k1={j['bm25_tuned']['k1']}, b={j['bm25_tuned']['b']}, "
+            f"lambda={j['bm25_tuned']['lambda']} (dev nDCG@10 {j['bm25_tuned']['dev_ndcg10']:.3f}); "
+            + ("confirmed on TEST, so adopted." if j['bm25_tuned']['confirmed_on_test'] else
+               "**not confirmed on TEST (row B2 below), so the defaults are kept**: the dev gain was overfitting to a small dev sample.")]
+           if "bm25_tuned" in j else []), ""]
+    rows = []
+    for r in j["table_easy"]:
+        rows.append({"system": r["system"], "n": r["n_moves"],
+                     "nDCG@10 [95% CI]": f"{r['ndcg10']:.3f} [{r['ndcg10_lo']:.3f}, {r['ndcg10_hi']:.3f}]",
+                     "P@5": f"{r['p5']:.3f}", "MRR": f"{r['mrr']:.3f}",
+                     "dnDCG vs A5": "" if pd.isna(r.get("ndcg_diff_vs_ref")) else f"{r['ndcg_diff_vs_ref']:+.3f}",
+                     "p vs A5": "" if pd.isna(r.get("p_vs_ref")) else f"{r['p_vs_ref']:.3f}"})
+    return L + [md(pd.DataFrame(rows)), "",
+                "E1 (event lexicon) is included to test whether its large 8-K-benchmark gain also shows up when news counts "
+                "as relevant. A random row is the floor; with small pools it is high.", ""]
+
+
 def h2_verdict(h2: dict) -> str:
     m = {r["model"].split()[0]: r for r in h2["models"]}
     pr = h2["paired"]
@@ -84,6 +149,7 @@ def results_md(R: dict[str, Any]) -> str:
         L += ["## H1: retrieval ablations (TEST)", "", f"Counts: `{h['counts']}`", "", h1_verdict(h), "",
               "### Hard mode (all tickers pooled, no ticker filter)", "", ablation_md(h["ablation_hard"]), "",
               "### Easy mode (ticker filter)", "", ablation_md(h["ablation_easy"]), "",
+              *h1_extras_md(h),
               "### Tuned on DEV", "", f"`{ {k: v for k, v in h['tuned'].items() if k != 'grids'} }`", "",
               "### Price-move-report headline exclusion (MRR of the final system)", "",
               md(pd.DataFrame([{"mode": m, **v} for m, v in h["price_report_exclusion"].items()])), "",
@@ -91,6 +157,7 @@ def results_md(R: dict[str, Any]) -> str:
               "### 'Unexplained' heuristic", "", f"`{h['unexplained']}`", ""]
     else:
         L += ["## H1", "", "_Not run (needs 8-K gold: set `EDGAR_USER_AGENT` and run `make data`)._", ""]
+    L += judged_md(R.get("judged"))
     if "h2" in R:
         h = R["h2"]
         t = pd.DataFrame(h["models"])

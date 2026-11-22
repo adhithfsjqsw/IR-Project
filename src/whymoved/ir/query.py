@@ -10,9 +10,14 @@ DOWN_LEXICON = ["miss", "misses", "missed", "cut", "cuts", "downgrade", "downgra
                 "lawsuit", "recall", "warning", "weak", "delay", "resigns", "layoffs", "restructuring",
                 "impairment", "bankruptcy"]
 
+# neutral corporate-event vocabulary (no direction): words that formal event disclosures use
+EVENT_LEXICON = ["announce", "announced", "announces", "report", "reported", "reports", "results", "quarter",
+                 "agreement", "completed", "appoint", "appointed", "acquisition", "offering", "guidance",
+                 "dividend", "merger", "board", "executive", "officer", "financial"]
+
 
 def build_query(name: str, ticker: str, direction: int | None = None,
-                direction_weight: float = 0.4) -> dict[str, float]:
+                direction_weight: float = 0.4, event_weight: float = 0.0) -> dict[str, float]:
     """Return {stemmed term: weight}. Name+ticker terms get weight 1; direction terms get `direction_weight`.
 
     direction: +1 up move, -1 down move, None/0 = no expansion.
@@ -24,4 +29,8 @@ def build_query(name: str, ticker: str, direction: int | None = None,
         for w in (UP_LEXICON if direction > 0 else DOWN_LEXICON):
             for t in tokenize(w):
                 q[t] = max(q.get(t, 0.0), direction_weight)
+    if event_weight > 0:
+        for w in EVENT_LEXICON:
+            for t in tokenize(w):
+                q[t] = max(q.get(t, 0.0), event_weight)
     return q

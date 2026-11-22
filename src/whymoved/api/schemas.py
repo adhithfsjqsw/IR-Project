@@ -6,6 +6,12 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 
+def clean_str(x) -> str | None:
+    """Parquet/pandas missing values (NaN, None, pd.NA) -> None, otherwise str. Response models want str | None."""
+    import pandas as pd
+    return None if x is None or (not isinstance(x, str) and pd.isna(x)) else str(x)
+
+
 class Entity(BaseModel):
     ticker: str
     name: str

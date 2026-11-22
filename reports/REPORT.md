@@ -4,7 +4,7 @@ _Generated programmatically from `reports/results.json`. This is not investment 
 
 ## Abstract
 
-We study two linked questions in a small information-retrieval system over S&P 500 data. (1) Given an abnormal daily stock move, which news or SEC 8-K documents best explain it, when SEC 8-K filings serve as an independent answer key? (2) Does a benchmark built from text-similar companies identify company-specific event days better than the market or the official GICS sector? The H1 and H2 experiments were not run in this build: they need SEC 8-K filings, which require a declared `EDGAR_USER_AGENT`. Text clusters from business descriptions agree moderately with GICS sectors (k-means NMI 0.46, ARI 0.33; average-linkage NMI 0.63, ARI 0.50; label-shuffled NMI 0.05).
+We study two linked questions in a small information-retrieval system over S&P 500 data. (1) Given an abnormal daily stock move, which news or SEC 8-K documents best explain it, when SEC 8-K filings serve as an independent answer key? (2) Does a benchmark built from text-similar companies identify company-specific event days better than the market or the official GICS sector? H1 (hard mode, final system `A5 + time prior` vs `A2 BM25 name-only`): MRR difference +0.043, paired-bootstrap p = 0.001 -> supported. H2: ROC-AUC of M2 (text peers) = 0.655 vs M0 (market) = 0.635 and M1 (GICS) = 0.657. M2 is better M0 (diff +0.0201, p = 0.004) and not distinguishable from M1 (diff -0.0021, p = 0.690). Text clusters from business descriptions agree moderately with GICS sectors (k-means NMI 0.46, ARI 0.33; average-linkage NMI 0.63, ARI 0.50; label-shuffled NMI 0.05).
 
 ## 1. Introduction
 
@@ -42,11 +42,52 @@ H1 ablations A0..A6 and H2 models M0..M2 are evaluated on TEST only, with 1000-r
 
 ### H1
 
-_Not run in this build (no 8-K data)._
+Counts: {'dev_flagged': 120, 'dev_with_gold': 34, 'test_flagged': 305, 'test_with_gold': 142, 'test_without_gold': 163}.
+
+**Hard mode**
+
+| system | n | MRR [95% CI] | R@1 | R@5 | R@10 | nDCG@10 | dMRR vs A2 | p vs A2 |
+|---|---|---|---|---|---|---|---|---|
+| A0 random | 142 | 0.018 [0.012, 0.025] | 0.000 [0.000, 0.000] | 0.014 [0.000, 0.035] | 0.038 [0.009, 0.070] | 0.015 [0.004, 0.028] | -0.053 | 0.001 |
+| A1 TF-IDF name-only | 142 | 0.067 [0.048, 0.090] | 0.014 [0.000, 0.035] | 0.060 [0.025, 0.102] | 0.134 [0.077, 0.197] | 0.057 [0.031, 0.085] | -0.004 | 0.008 |
+| A2 BM25 name-only | 142 | 0.071 [0.052, 0.094] | 0.014 [0.000, 0.035] | 0.053 [0.021, 0.092] | 0.144 [0.088, 0.204] | 0.061 [0.034, 0.089] |  |  |
+| A3 BM25 + direction | 142 | 0.071 [0.051, 0.094] | 0.014 [0.000, 0.035] | 0.056 [0.021, 0.095] | 0.141 [0.085, 0.197] | 0.061 [0.034, 0.089] | -0.000 | 0.920 |
+| A4 + Rocchio PRF | 142 | 0.071 [0.051, 0.094] | 0.014 [0.000, 0.035] | 0.056 [0.021, 0.095] | 0.141 [0.085, 0.197] | 0.061 [0.034, 0.089] | -0.000 | 0.920 |
+| A5 + time prior | 142 | 0.114 [0.084, 0.149] | 0.039 [0.011, 0.070] | 0.106 [0.060, 0.159] | 0.268 [0.201, 0.345] | 0.122 [0.084, 0.163] | +0.043 | 0.001 |
+
+**Easy mode**
+
+| system | n | MRR [95% CI] | R@1 | R@5 | R@10 | nDCG@10 | dMRR vs A2 | p vs A2 |
+|---|---|---|---|---|---|---|---|---|
+| A0 random | 142 | 0.272 [0.219, 0.330] | 0.158 [0.099, 0.222] | 0.331 [0.260, 0.412] | 0.569 [0.493, 0.655] | 0.322 [0.266, 0.383] | +0.103 | 0.001 |
+| A1 TF-IDF name-only | 142 | 0.165 [0.120, 0.219] | 0.099 [0.049, 0.155] | 0.151 [0.095, 0.215] | 0.243 [0.176, 0.324] | 0.155 [0.106, 0.213] | -0.003 | 0.042 |
+| A2 BM25 name-only | 142 | 0.169 [0.124, 0.222] | 0.099 [0.049, 0.155] | 0.151 [0.095, 0.211] | 0.250 [0.183, 0.327] | 0.158 [0.109, 0.217] |  |  |
+| A3 BM25 + direction | 142 | 0.171 [0.127, 0.226] | 0.099 [0.049, 0.155] | 0.155 [0.099, 0.218] | 0.254 [0.187, 0.331] | 0.161 [0.111, 0.219] | +0.002 | 0.716 |
+| A4 + Rocchio PRF | 142 | 0.171 [0.127, 0.226] | 0.099 [0.049, 0.155] | 0.155 [0.099, 0.218] | 0.254 [0.187, 0.331] | 0.161 [0.111, 0.219] | +0.002 | 0.716 |
+| A5 + time prior | 142 | 0.211 [0.163, 0.266] | 0.123 [0.074, 0.183] | 0.190 [0.127, 0.257] | 0.397 [0.317, 0.480] | 0.224 [0.174, 0.283] | +0.042 | 0.001 |
+
+Tuned on DEV: {'direction_w': 0.1, 'prf': None, 'lambda': 2.0, 'dev_mrr': {'A3': 0.06866732035579305, 'A4': 0.06822216037716451, 'A5': 0.1183001928304156}}
+
+'Unexplained' heuristic (tau from DEV): {'tau': 3.6810623927790247, 'heuristic': True, 'share_goldless_below_tau': 0.12269938650306748, 'share_gold_below_tau': 0.07042253521126761, 'n_goldless': 163}
 
 ### H2
 
-_Not run in this build (no 8-K data)._
+H2: ROC-AUC of M2 (text peers) = 0.655 vs M0 (market) = 0.635 and M1 (GICS) = 0.657. M2 is better M0 (diff +0.0201, p = 0.004) and not distinguishable from M1 (diff -0.0021, p = 0.690).
+
+| model | roc_auc | roc_auc_lo | roc_auc_hi | pr_auc | pr_auc_lo | pr_auc_hi | top200_share_with_8k | z_std |
+|---|---|---|---|---|---|---|---|---|
+| M0 market | 0.635 | 0.614 | 0.655 | 0.198 | 0.172 | 0.224 | 0.575 | 1.066 |
+| M1 market+GICS sector | 0.657 | 0.637 | 0.677 | 0.215 | 0.188 | 0.244 | 0.600 | 1.086 |
+| M2 market+text peers | 0.655 | 0.635 | 0.673 | 0.213 | 0.187 | 0.242 | 0.615 | 1.090 |
+
+### Cause classifier
+
+| model | accuracy | macro_F1 |
+|---|---|---|
+| nb | 0.858 | 0.684 |
+| rocchio | 0.858 | 0.702 |
+| knn | 0.840 | 0.694 |
+| majority | 0.283 | 0.063 |
 
 ### Sector module
 

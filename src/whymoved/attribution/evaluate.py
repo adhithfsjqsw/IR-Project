@@ -12,6 +12,7 @@ from ..ir.query import build_query
 from ..ir.search import Searcher
 from ..ir.tolerant import normalize_name
 from ..ir.tokenize import tokenize
+from ..ir.burst import burst_terms
 from .candidates import candidate_pool, window_days
 from .metrics import rank_metrics
 
@@ -26,6 +27,11 @@ class System:
     lam: float = 0.0
     prior: Callable[[int], float] | None = None
     exclude_price_reports: bool = False
+    event_w: float = 0.0            # neutral event-lexicon expansion weight (0 = off)
+    type_w8k: float = 1.0           # multiplier on 8-K docs (1 = off); a benchmark-aware diagnostic
+    burst_w: float = 0.0            # weight of 'burst' terms (distinctive of the ticker on the move day); 0 = off
+    burst_n: int = 10               # number of burst terms
+    base_days: int = 20             # baseline window (trading days before the event window)
     params: dict = field(default_factory=dict)
 
 
@@ -64,10 +70,17 @@ class Evaluator:
                 rec["pool"] = len(pool)
             else:
                 q = build_query(self.names[m.ticker], m.ticker,
-                                int(m.direction) if system.direction_w > 0 else None, system.direction_w or 0.4)
+                                int(m.direction) if system.direction_w > 0 else None, system.direction_w or 0.4,
+                                system.event_w)
+                if system.burst_w > 0:
+                    i0 = self.pos[days[0]]
+                    base = self.cal[max(0, i0 - system.base_days): i0]
+                    for t, w in burst_terms(self.idx, m.ticker, days, base, system.burst_n, exclude=set(q)).items():
+                        q[t] = system.burst_w * w
                 hits = self.searcher.search(q, days, tk, k=k, method=system.method, prf=system.prf,
                                             time_lambda=system.lam, event_day=day, prior=system.prior,
-                                            exclude=exclude)
+                                            exclude=exclude,
+                                            type_weights={"8k": system.type_w8k} if system.type_w8k != 1.0 else None)
                 ranked = [h.doc_id for h in hits]
                 rec["top1"] = hits[0].score if hits else 0.0
             if rel:

@@ -1,7 +1,24 @@
+# environments and dependencies
 .venv/
+frontend/node_modules/
+
+# data (large; see the dataset README in the submission, or run `make data`)
 data/
+
+# build output and caches
+frontend/dist/
+*.tsbuildinfo
 __pycache__/
 *.pyc
 .pytest_cache/
-frontend/node_modules/
-frontend/dist/
+
+# secrets and local config (EDGAR user agent is read from an environment variable)
+.env
+.env.*
+
+# logs and OS/editor files
+*.log
+*.err
+.DS_Store
+Thumbs.db
+.vscode/

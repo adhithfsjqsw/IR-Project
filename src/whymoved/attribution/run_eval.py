@@ -10,7 +10,8 @@ from ..common import INTERIM, PROCESSED, get_logger, load_config, seed_all
 from ..data.docs import trading_days
 from ..ir.build import load_or_build
 from ..reporting import save_table, update_results
-from .ablations import ablation_table, systems_from_params, tune_on_dev
+from .ablations import (ablation_table, expected_random_mrr, extra_systems, systems_from_params, tune_extras,
+                        tune_on_dev)
 from .candidates import price_move_docs
 from .evaluate import Evaluator, System
 from .gold import gold_lookup
@@ -53,14 +54,28 @@ def main() -> None:
     systems = systems_from_params(tuned, prior)
     out = {"counts": counts, "tuned": tuned}
     per_hard = {}
+    out["random_expectation"] = {}
     for mode in ("hard", "easy"):
         tab, per = ablation_table(ev, test, systems, mode, 1000)
+        # exact expected MRR of random ranking, from each move's pool size (sanity floor for the A0 row)
+        out["random_expectation"][mode] = {"expected_mrr": expected_random_mrr(per["A0 random"].pool),
+                                          "median_pool": float(per["A0 random"].pool.median())}
         save_table(tab, f"ablation_{mode}")
         out[f"ablation_{mode}"] = tab.to_dict(orient="records")
         if mode == "hard":
             per_hard = per
         log.info("ablation (%s):\n%s", mode, tab[["system", "n_moves", "rr", "recall@1", "recall@10", "ndcg10"]]
                  .round(3).to_string())
+
+    # extras (tuned on DEV; never replace A0..A6): event lexicon, small-m Rocchio, 8-K prior (diagnostic)
+    x = tune_extras(ev, dev, tuned)
+    out["extras_tuned"] = x
+    log.info("extras tuned on DEV: %s", {k: v for k, v in x.items() if k != "grids"})
+    for mode in ("hard", "easy"):
+        tab, _ = ablation_table(ev, test, extra_systems(tuned, x), mode, 1000)
+        out[f"ablation_extra_{mode}"] = tab.to_dict(orient="records")
+        save_table(tab, f"ablation_extra_{mode}")
+        log.info("extras (%s):\n%s", mode, tab[["system", "rr", "recall@10", "ndcg10"]].round(3).to_string())
 
     # optional: drop price-move-report headlines from the pool (final system, both modes)
     final = systems[-1]

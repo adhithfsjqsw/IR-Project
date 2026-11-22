@@ -15,13 +15,17 @@ from ..ir.query import build_query
 from ..ir.search import Searcher
 from ..ir.tokenize import stem, tokenize
 from ..ir.tolerant import EntityIndex
-from .schemas import (Entity, ExplainResponse, Explanation, FeedbackRequest, Move, PeerOut, PeersResponse)
+from .schemas import (clean_str, Entity, ExplainResponse, Explanation, FeedbackRequest, Move, PeerOut, PeersResponse)
 
 app = FastAPI(title="WhyMoved API", description="Not investment advice.")
 from .search import router as search_router  # noqa: E402
 from .shock import router as shock_router  # noqa: E402
+from .rag import router as rag_router  # noqa: E402
 app.include_router(search_router)
 app.include_router(shock_router)
+from .price import router as price_router  # noqa: E402
+app.include_router(rag_router)
+app.include_router(price_router)
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
                    allow_methods=["*"], allow_headers=["*"])
 
@@ -105,11 +109,11 @@ def _explain(ticker: str, date: str, mode: str, relevant=(), nonrelevant=()) -> 
         row = s.docs.iloc[h.doc_id]
         is8k = m["doc_type"] == "8k"
         out.append(Explanation(
-            doc_id=h.doc_id, rank=r, score=float(h.score), doc_type=m["doc_type"], publisher=m.get("publisher"),
+            doc_id=h.doc_id, rank=r, score=float(h.score), doc_type=m["doc_type"], publisher=clean_str(m.get("publisher")),
             effective_day=m["effective_day"], title=str(row.title), snippet=str(row.text)[:280],
-            cause_label=m.get("cause_label") if is8k else labels_pred.get(h.doc_id),
+            cause_label=clean_str(m.get("cause_label") if is8k else labels_pred.get(h.doc_id)),
             cause_source="8-K items" if is8k else "classifier", is_gold=h.doc_id in gold,
-            matched_terms=_surface_matches(str(row.text)[:1500], set(h.contributions)), url=row.url))
+            matched_terms=_surface_matches(str(row.text)[:1500], set(h.contributions)), url=clean_str(row.url)))
     top = hits[0].score if hits else 0.0
     return ExplainResponse(ticker=ticker, date=date, mode=mode, query_terms=q, tau=s.tau,
                            unexplained=bool(s.tau is not None and top < s.tau), results=out)

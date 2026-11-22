@@ -1,6 +1,7 @@
 """Shock-mode endpoints. Analogs are descriptive, not a forecast."""
 from __future__ import annotations
 
+import re
 from functools import lru_cache
 
 import numpy as np
@@ -15,6 +16,7 @@ from ..shock.daydocs import build_day_vectors, top_terms
 from ..shock.features import FEATURES, GROUPS, SECTORS, group_weights
 
 router = APIRouter()
+CYR = re.compile("[Ѐ-ӿ]")  # the 1999-2006 headlines in the source data are Russian national news, not US market news
 VIEWS = {"numeric": "num", "text": "text1", "burst": "text2", "fused": "fused"}
 
 
@@ -46,7 +48,8 @@ class ShockState:
         return int(hit[0])
 
     def excerpts(self, date: str, n: int = 6) -> list[str]:
-        return self.docs.text[date].split(" . ")[:n] if date in self.docs.index else []
+        lines = self.docs.text[date].split(" . ")[:n] if date in self.docs.index else []
+        return [x for x in lines if not CYR.search(x)]
 
 
 @lru_cache(maxsize=1)

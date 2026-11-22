@@ -78,3 +78,34 @@ Every non-obvious decision, with the reason. Newest at the bottom of each sectio
 - **Search feedback buttons** are not on the Search page (the base `/api/feedback` is explain-specific); shock analogs do have explicit Rocchio feedback.
 - **Bug fixed:** bootstrap p-values could exceed 1 when many resampled differences are exactly 0; now capped at 1 everywhere.
 - Shock analogs are only available for detected shock days (404 otherwise), not arbitrary dates.
+
+## Post-evaluation additions (RAG, baseline diagnosis, extras)
+- **Easy-mode "random beats BM25" is not a bug.** Exact expected random MRR is H_n/n averaged over pools: 0.251 in easy mode
+  (median pool 26 docs), measured 0.27. Inside a ticker-filtered pool a company-name query carries no information, so BM25
+  name-only ranks by name repetition, which favours news over formal 8-Ks (gold 8-Ks match 59% of query terms, other pool docs 72%).
+  The report now prints the analytic expectation next to the A0 row.
+- **A0..A6 are unchanged** (re-run reproduced them exactly). New variants E1-E3 are tuned on DEV only and reported separately:
+  E1 event-lexicon expansion, E3 small-m Rocchio, E2 an 8-K document-type prior.
+- **E1/E2 are benchmark-aware.** The gold is always an 8-K, so features that identify 8-K-style text raise MRR without showing
+  better explanatory retrieval (hard-mode top-1 is an 8-K for 2% of moves under A5 but 30% under E1). E2 reaches MRR 1.000 in easy
+  mode, which is the clearest sign of this. Treated as diagnostics; the headline H1 comparison stays A5 vs A2.
+- **Title-field boosting was not implemented:** gold 8-K titles are item codes ("8-K 2.02,9.01"), so it can only help news.
+- **RAG** (`src/whymoved/rag`, `GET /api/rag`): BM25 top-k -> local Ollama (qwen2.5:7b) with a cite-only-the-sources prompt.
+  Evaluated by `python -m whymoved.rag.evaluate` against the 8-K-derived cause label (conditions: none / news / all). The gold
+  label is ~87-93% "earnings", so overall accuracy is read against the majority-class baseline and split by earnings vs non-earnings.
+- **Not done:** Phase 13 (peer events, H6) needs all-constituent news/8-K data.
+
+## Retrieval-improvement round (judged relevance)
+- **Why:** the 8-K-only key marks one document per move, so news about the same event counts as a miss, and 8-K-style features
+  (E1/E2) inflate it. `attribution/judged.py` judges EVERY document in an easy-mode pool with the local LLM (complete qrels,
+  no pooling bias) and evaluates any system instantly from `reports/judgments.jsonl`. The judge is an LLM and unverified by a human:
+  it called 83% of the known-relevant gold 8-Ks relevant and 0% of random other-ticker documents (n=30 each); a spot-check
+  sample is in `reports/tables/judge_review_sample.csv`.
+- **Findings (27 test moves with a relevant doc):** A5 beats BM25 name-only (nDCG@10 0.656 vs 0.541, p=0.006) and random (0.471);
+  ~88% of judged-relevant documents are not the 8-K. So A5 is above random under judged relevance, unlike under the 8-K-only
+  easy-mode metric.
+- **Tried and NOT adopted:** (1) burst-term queries (`ir/burst.py`): no gain on DEV or TEST (0.648 vs 0.656, p=0.85);
+  (2) re-tuned BM25 k1/b/lambda: +0.023 on DEV but -0.007 on TEST (overfit to 20 dev moves); (3) E1 event lexicon: +0.057, not
+  significant, i.e. most of its 8-K-benchmark gain does not transfer. Defaults and the API are unchanged.
+- **Limits:** easy mode only (hard mode would need judging other tickers' pools); 27 test moves is small; the time prior is the
+  only component that clearly helps.

@@ -46,6 +46,48 @@ def tune_on_dev(ev: Evaluator, dev: pd.DataFrame, base: dict) -> dict:
             "dev_mrr": {"A3": sc[dw], "A4": sc2[best], "A5": sc3[lam]}}
 
 
+def tune_extras(ev: Evaluator, dev: pd.DataFrame, p: dict) -> dict:
+    """Tune the extra (non-headline) knobs on DEV only, on top of the A5 parameters. Hard mode, MRR.
+
+    event_w:  neutral event-lexicon query expansion (E1).
+    type_w8k: multiplier on 8-K docs (E2). This is BENCHMARK-AWARE: the gold is always an 8-K, so any 8-K prior
+              is fitted to the benchmark's construction. Reported as a diagnostic, never as the headline.
+    prf_small: Rocchio with a small pseudo-relevant set (m in 1,3), since m=5 drifted toward generic terms (E3).
+    """
+    base = dict(direction_w=p["direction_w"], prf=p["prf"], lam=p["lambda"])
+    grid_e = [0.0, 0.1, 0.2, 0.4, 0.8]
+    sc_e = {w: _mrr(ev, dev, System("E1", event_w=w, **base)) for w in grid_e}
+    ew = max(grid_e, key=lambda w: (round(sc_e[w], 9), -w))
+    grid_t = [1.0, 1.5, 2.0, 3.0, 5.0]
+    sc_t = {w: _mrr(ev, dev, System("E2", event_w=ew, type_w8k=w, **base)) for w in grid_t}
+    tw = max(grid_t, key=lambda w: (round(sc_t[w], 9), -w))
+    grid_p = list(itertools.product([1, 3], [0.25, 0.5], [5, 10]))
+    sc_p = {g: _mrr(ev, dev, System("E3", direction_w=p["direction_w"], lam=p["lambda"],
+                                    prf={"alpha": 1.0, "beta": g[1], "m": g[0], "t": g[2]})) for g in grid_p}
+    bp = max(grid_p, key=lambda g: sc_p[g])
+    prf_small = {"alpha": 1.0, "beta": bp[1], "m": bp[0], "t": bp[2]}
+    return {"event_w": ew, "type_w8k": tw, "prf_small": prf_small,
+            "grids": {"event_w": sc_e, "type_w8k": sc_t, "prf_small": {str(k): v for k, v in sc_p.items()}},
+            "dev_mrr": {"E1": sc_e[ew], "E2": sc_t[tw], "E3": sc_p[bp]}}
+
+
+def extra_systems(p: dict, x: dict) -> list[System]:
+    """Systems evaluated next to (never replacing) A0..A6. All keep A5's direction weight and time prior."""
+    base = dict(direction_w=p["direction_w"], lam=p["lambda"])
+    return [System("A2 BM25 name-only"),
+            System("E3 A5 w/ small-m Rocchio", prf=x["prf_small"], **base),
+            System("E1 A5 + event lexicon", prf=p["prf"], event_w=x["event_w"], **base),
+            System("E2 E1 + 8-K prior (diagnostic)", prf=p["prf"], event_w=x["event_w"], type_w8k=x["type_w8k"],
+                   **base)]
+
+
+def expected_random_mrr(pools) -> float:
+    """Exact expected MRR of a uniformly random ranking of a pool of n docs with one relevant doc: H_n / n.
+    (With several relevant docs this is a slight lower bound.) Averaged over moves."""
+    pools = [int(n) for n in pools if n and n > 0]
+    return float(np.mean([sum(1.0 / i for i in range(1, n + 1)) / n for n in pools])) if pools else float("nan")
+
+
 def systems_from_params(p: dict, prior: Callable[[int], float] | None = None) -> list[System]:
     s = [System("A0 random", method="random"),
          System("A1 TF-IDF name-only", method="tfidf"),

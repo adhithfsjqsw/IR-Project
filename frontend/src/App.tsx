@@ -16,7 +16,7 @@ export default function App() {
   return (
     <div className="app">
       <header>
-        <h1>WhyMoved</h1>
+        <h1>WhyMoved<small>Market-move retrieval &amp; explanation</small></h1>
         <nav>
           {TABS.map((t) => (
             <button key={t} className={t === tab ? "on" : ""} onClick={() => setTab(t)}>{t}</button>

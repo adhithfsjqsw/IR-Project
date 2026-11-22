@@ -33,12 +33,13 @@ class Searcher:
     def search(self, query: dict[str, float], days: list[str] | None, ticker: str | None = None,
                k: int = 10, method: str = "bm25", prf: dict | None = None, time_lambda: float = 0.0,
                event_day: str | None = None, prior: Callable[[int], float] | None = None,
-               exclude: set[int] | None = None) -> list[Hit]:
+               exclude: set[int] | None = None, type_weights: dict[str, float] | None = None) -> list[Hit]:
         """Run retrieval.
 
         prf: {"alpha","beta","m","t"} enables pseudo-relevance feedback (top-m of first pass).
         time_lambda: score *= exp(-lambda * days_before_move) using each doc's effective_day.
         prior: optional per-doc multiplicative prior (e.g. source reputation).
+        type_weights: optional per-doc_type multiplier, e.g. {"8k": 2.0} (a document-type prior).
         """
         idx = self.idx
         allowed = allowed_docs(idx, days, ticker)
@@ -60,4 +61,7 @@ class Searcher:
         if prior is not None:
             for d in acc:
                 acc[d] *= prior(d)
+        if type_weights:
+            for d in acc:
+                acc[d] *= type_weights.get(idx.meta[d].get("doc_type"), 1.0)
         return [Hit(d, s, contrib.get(d, {})) for d, s in top_k(acc, k)]

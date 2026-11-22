@@ -1,0 +1,106 @@
+{
+  "n_moves": 57,
+  "majority_class_baseline": 0.631578947368421,
+  "majority_class": "earnings",
+  "conditions": {
+    "none": {
+      "n": 57,
+      "accuracy": 0.5614035087719298,
+      "abstain_rate": 0.12280701754385964,
+      "accuracy_when_answered": 0.64,
+      "gold_doc_in_context": 0.0,
+      "accuracy_gold_in_context": null,
+      "accuracy_gold_not_in_context": 0.5614035087719298,
+      "invalid_citation_rate": 0.0,
+      "answers_with_citation": null,
+      "mean_secs": 13.624561403508773
+    },
+    "news": {
+      "n": 57,
+      "accuracy": 0.6491228070175439,
+      "abstain_rate": 0.07017543859649122,
+      "accuracy_when_answered": 0.6981132075471698,
+      "gold_doc_in_context": 0.0,
+      "accuracy_gold_in_context": null,
+      "accuracy_gold_not_in_context": 0.6491228070175439,
+      "invalid_citation_rate": 0.0,
+      "answers_with_citation": 0.8947368421052632,
+      "mean_secs": 49.85087719298246,
+      "cites_gold_doc_rate": 0.0,
+      "cites_gold_doc_n": 17
+    },
+    "all": {
+      "n": 57,
+      "accuracy": 0.6666666666666666,
+      "abstain_rate": 0.07017543859649122,
+      "accuracy_when_answered": 0.7169811320754716,
+      "gold_doc_in_context": 0.22807017543859648,
+      "accuracy_gold_in_context": 0.5384615384615384,
+      "accuracy_gold_not_in_context": 0.7045454545454546,
+      "invalid_citation_rate": 0.0,
+      "answers_with_citation": 0.9473684210526315,
+      "mean_secs": 19.617543859649125,
+      "cites_gold_doc_rate": 0.23529411764705882,
+      "cites_gold_doc_n": 17
+    }
+  },
+  "by_gold_class": {
+    "none": {
+      "recall_per_class": {
+        "earnings": 0.8888888888888888,
+        "governance": 0.0,
+        "leadership": 0.0,
+        "mna": 0.0,
+        "other": 0.0
+      },
+      "macro_recall": 0.17777777777777776,
+      "n_per_class": {
+        "earnings": 36,
+        "other": 12,
+        "leadership": 4,
+        "mna": 3,
+        "governance": 2
+      },
+      "accuracy_earnings": 0.8888888888888888,
+      "accuracy_non_earnings": 0.0
+    },
+    "news": {
+      "recall_per_class": {
+        "earnings": 0.8611111111111112,
+        "governance": 0.0,
+        "leadership": 0.0,
+        "mna": 1.0,
+        "other": 0.25
+      },
+      "macro_recall": 0.4222222222222222,
+      "n_per_class": {
+        "earnings": 36,
+        "other": 12,
+        "leadership": 4,
+        "mna": 3,
+        "governance": 2
+      },
+      "accuracy_earnings": 0.8611111111111112,
+      "accuracy_non_earnings": 0.2857142857142857
+    },
+    "all": {
+      "recall_per_class": {
+        "earnings": 0.8333333333333334,
+        "governance": 0.0,
+        "leadership": 0.5,
+        "mna": 1.0,
+        "other": 0.25
+      },
+      "macro_recall": 0.5166666666666667,
+      "n_per_class": {
+        "earnings": 36,
+        "other": 12,
+        "leadership": 4,
+        "mna": 3,
+        "governance": 2
+      },
+      "accuracy_earnings": 0.8333333333333334,
+      "accuracy_non_earnings": 0.38095238095238093
+    }
+  }
+}

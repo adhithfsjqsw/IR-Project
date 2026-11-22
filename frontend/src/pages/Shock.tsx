@@ -71,7 +71,7 @@ export default function Shock() {
           {info.data.thin_text ? <p className="muted">Text view unavailable (fewer than 20 headlines).</p> :
             <details><summary>{info.data.n_headlines} headlines; top terms</summary>
               <p><b>T1:</b> {info.data.top_terms_t1.join(", ")}<br /><b>T2 (burst):</b> {info.data.top_terms_t2.join(", ")}</p>
-              <ul>{info.data.headlines.map((h, i) => <li key={i}>{h}</li>)}</ul></details>}
+              {info.data.headlines.length === 0 ? <p className="muted">No English headlines for this day (before 2007 the source holds only Russian national news).</p> : <ul>{info.data.headlines.map((h, i) => <li key={i}>{h}</li>)}</ul>}</details>}
         </>}
         <div className="row">
           {["numeric", "text", "burst", "fused"].map((v) => <button key={v} className={v === view ? "on" : ""} style={v === view ? { borderColor: "var(--accent)" } : {}} onClick={() => { setView(v); setFbRes(null); }}>{v}</button>)}
@@ -96,7 +96,7 @@ export default function Shock() {
               <div className="meta"><b>{a.date}</b> <span className={a.r_spy < 0 ? "down" : "up"}>SPY {pct(a.r_spy)}</span>
                 <span className="badge">+20d {pct(a.outcomes.fwd_ret_20)}</span><span className="badge">max DD {pct(a.outcomes.fwd_maxdd_20)}</span>
                 <span className="muted"> sim {a.score.toFixed(2)} · numeric {a.view_scores.numeric.toFixed(2)} · text {a.view_scores.text.toFixed(2)} · burst {a.view_scores.burst.toFixed(2)}</span></div>
-              {a.thin_text ? <p className="muted">no text view</p> : <ul>{a.headlines.slice(0, 3).map((h, i) => <li key={i}>{h}</li>)}</ul>}
+              {a.thin_text ? <p className="muted">no text view</p> : a.headlines.length === 0 ? <p className="muted">No English headlines for this day: before 2007 the source data holds only Russian national news, so the text view is not meaningful here and this match rests on price behaviour.</p> : <ul>{a.headlines.slice(0, 3).map((h, i) => <li key={i}>{h}</li>)}</ul>}
               <button onClick={() => send([...fb.rel, a.date], fb.non)}>Relevant ({fb.rel.includes(a.date) ? "✓" : "+"})</button>{" "}
               <button onClick={() => send(fb.rel, [...fb.non, a.date])}>Not relevant ({fb.non.includes(a.date) ? "✓" : "+"})</button>
             </article>))}

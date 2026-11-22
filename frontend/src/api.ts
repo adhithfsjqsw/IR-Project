@@ -27,6 +27,10 @@ export interface Explain {
   ticker: string; date: string; mode: string; unexplained: boolean; tau: number | null;
   results: Explanation[]; query_terms: Record<string, number>;
 }
+export interface Rag {
+  ticker: string; date: string; mode: string; model: string; answer: string; cited: number[];
+  invalid_citations: number[]; unexplained: boolean; sources: Explanation[];
+}
 export interface Peer { ticker: string; name: string; sector: string; similarity: number; same_sector: boolean }
 export interface Peers {
   ticker: string; name: string; official_sector: string; sub_industry: string; kmeans_cluster: number;

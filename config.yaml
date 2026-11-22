@@ -42,3 +42,4 @@ shock:
   burst_baseline_days: 60
   peer_k: 5
   placebo_draws: 20
+rag: {backend: ollama, model: "qwen2.5:7b", temperature: 0.1, top_k: 5, max_chars: 1200, timeout: 300}

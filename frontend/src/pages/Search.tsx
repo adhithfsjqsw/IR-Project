@@ -2,11 +2,12 @@ import { useState } from "react";
 import { get } from "../api";
 import { useAsync } from "../hooks";
 import { Status } from "../Status";
+import PriceReaction from "./PriceReaction";
 
 interface Hit {
   doc_id: number; rank: number; score: number; contributions: Record<string, number>; doc_type: string;
   publisher: string | null; ticker: string; effective_day: string; title: string; snippet: string;
-  matched_terms: string[]; cause_label: string | null; url: string | null;
+  matched_terms: string[]; cause_label: string | null; url: string | null; also_tagged: string[];
 }
 interface Resp { query: string; n_candidates: number; expanded_wildcards: Record<string, string[]>; did_you_mean: string[]; results: Hit[] }
 
@@ -58,9 +59,10 @@ export default function Search() {
           <article key={h.doc_id}>
             <div className="meta"><span className={`badge ${h.doc_type}`}>{h.doc_type === "8k" ? "8-K" : "news"}</span>
               {h.cause_label && <span className="badge">{h.cause_label}</span>}
-              <span className="muted">#{h.rank} · {h.score.toFixed(3)} · {h.ticker} · {h.effective_day} · {h.publisher}</span></div>
+              <span className="muted">#{h.rank} · {h.score.toFixed(3)} · {h.ticker}{(h.also_tagged?.length ?? 0) > 0 && ` (+${h.also_tagged.length} more tickers)`} · {h.effective_day} · {h.publisher}</span></div>
             <h3>{h.url ? <a href={h.url} target="_blank" rel="noreferrer">{h.title}</a> : h.title}</h3>
             <p><Highlight text={h.snippet} terms={h.matched_terms} /></p>
+            {h.doc_type === "news" && h.ticker && <PriceReaction ticker={h.ticker} day={h.effective_day} />}
             <button onClick={() => setOpen(open === h.doc_id ? null : h.doc_id)}>{open === h.doc_id ? "Hide" : "Per-term scores"}</button>
             {open === h.doc_id && <table><tbody>{Object.entries(h.contributions).sort((a, b) => b[1] - a[1]).map(([t, v]) => <tr key={t}><td>{t}</td><td>{v.toFixed(3)}</td></tr>)}</tbody></table>}
           </article>))}
